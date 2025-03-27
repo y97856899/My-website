@@ -1,0 +1,321 @@
+/* Additional Animations CSS */
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideInLeft {
+    from {
+      transform: translateX(-50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideInRight {
+    from {
+      transform: translateX(50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideInUp {
+    from {
+      transform: translateY(50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes scaleIn {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes rotateIn {
+    from {
+      transform: rotate(-10deg) scale(0.8);
+      opacity: 0;
+    }
+    to {
+      transform: rotate(0) scale(1);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  
+  /* Apply animations to elements */
+  .animate-item {
+    opacity: 0;
+  }
+  
+  .animate-in {
+    animation: fadeIn 1s ease forwards;
+  }
+  
+  .section-title h2 {
+    animation: slideInUp 1s ease forwards;
+  }
+  
+  .about-image {
+    animation: scaleIn 1.2s ease forwards;
+  }
+  
+  .about-text {
+    animation: slideInRight 1.2s ease forwards;
+  }
+  
+  .timeline-item:nth-child(odd) {
+    animation-delay: 0.3s;
+    animation: slideInLeft 1s ease forwards;
+  }
+  
+  .timeline-item:nth-child(even) {
+    animation-delay: 0.6s;
+    animation: slideInRight 1s ease forwards;
+  }
+  
+  .skill-item {
+    animation: scaleIn 0.8s ease forwards;
+    animation-delay: calc(var(--i, 0) * 0.1s);
+  }
+  
+  .personal-skill {
+    animation: scaleIn 0.8s ease forwards;
+    animation-delay: calc(var(--i, 0) * 0.2s);
+  }
+  
+  .project-card {
+    animation: slideInUp 0.8s ease forwards;
+    animation-delay: calc(var(--i, 0) * 0.2s);
+  }
+  
+  .achievement-card {
+    animation: slideInUp 0.8s ease forwards;
+    animation-delay: calc(var(--i, 0) * 0.15s);
+  }
+  
+  .certification-item {
+    animation: slideInRight 0.8s ease forwards;
+    animation-delay: calc(var(--i, 0) * 0.1s);
+  }
+  
+  .contact-card {
+    animation: scaleIn 0.8s ease forwards;
+    animation-delay: calc(var(--i, 0) * 0.15s);
+  }
+  
+  /* Hover animations */
+  .skill-item:hover {
+    animation: pulse 1s infinite;
+  }
+  
+  .project-card:hover .project-img-placeholder i {
+    animation: float 2s infinite;
+  }
+  
+  .social-icon:hover i {
+    animation: rotateIn 0.5s ease;
+  }
+  
+  .btn:hover {
+    animation: pulse 1s;
+  }
+  
+  /* Transition effects */
+  .tab-pane {
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+  
+  .project-overlay {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  
+  .project-card:hover .project-overlay {
+    transform: scale(1);
+  }
+  
+  /* Scroll reveal animations */
+  .reveal {
+    position: relative;
+    opacity: 0;
+    transition: all 1s ease;
+  }
+  
+  .reveal.active {
+    opacity: 1;
+  }
+  
+  .reveal-left {
+    transform: translateX(-100px);
+  }
+  
+  .reveal-right {
+    transform: translateX(100px);
+  }
+  
+  .reveal-top {
+    transform: translateY(-100px);
+  }
+  
+  .reveal-bottom {
+    transform: translateY(100px);
+  }
+  
+  .reveal-rotate {
+    transform: rotate(-10deg);
+  }
+  
+  .reveal-scale {
+    transform: scale(0.8);
+  }
+  
+  .reveal.active {
+    transform: translateX(0) translateY(0) rotate(0) scale(1);
+  }
+  
+  /* Staggered animations for lists */
+  .timeline-details li,
+  .project-tech span {
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+  }
+  
+  .timeline-details li:nth-child(1),
+  .project-tech span:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  
+  .timeline-details li:nth-child(2),
+  .project-tech span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  .timeline-details li:nth-child(3),
+  .project-tech span:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  
+  .timeline-details li:nth-child(4),
+  .project-tech span:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+  
+  /* Form field animations */
+  .form-group input:focus,
+  .form-group textarea:focus {
+    animation: pulse 1s;
+  }
+  
+  .submit-btn:hover i {
+    animation: slideInRight 0.5s ease;
+  }
+  
+  /* Loading animations */
+  .loading {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  
+  .loading div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  }
+  
+  .loading div:nth-child(1) {
+    left: 8px;
+    animation: loading1 0.6s infinite;
+  }
+  
+  .loading div:nth-child(2) {
+    left: 8px;
+    animation: loading2 0.6s infinite;
+  }
+  
+  .loading div:nth-child(3) {
+    left: 32px;
+    animation: loading2 0.6s infinite;
+  }
+  
+  .loading div:nth-child(4) {
+    left: 56px;
+    animation: loading3 0.6s infinite;
+  }
+  
+  @keyframes loading1 {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes loading3 {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+  
+  @keyframes loading2 {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(24px, 0);
+    }
+  }
+  

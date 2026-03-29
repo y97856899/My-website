@@ -11,8 +11,8 @@
 :root {
   --primary: #2c3e6b;
   --primary-dark: #1a2540;
-  --accent: #c8973a;
-  --accent-light: #e6b450;
+  --accent: #3a7bd5;
+  --accent-light: #5a9ff0;
   --bg: #faf7f2;
   --bg-alt: #f0ebe0;
   --bg-card: #ffffff;
@@ -30,11 +30,11 @@ html { scroll-behavior: smooth; }
 body { background: var(--bg); color: var(--text); font-family: 'Poppins', sans-serif; font-size: 16px; line-height: 1.7; overflow-x: hidden; }
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-alt); }
-::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
 
 /* ========== PRELOADER ========== */
 .preloader { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s ease; }
-.loader { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+.loader { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* ========== NAVBAR ========== */
@@ -136,12 +136,12 @@ body { background: var(--bg); color: var(--text); font-family: 'Poppins', sans-s
 .skill-svg { width: 110px; height: 110px; transform: rotate(-90deg); }
 .skill-circle-bg { fill: none; stroke: var(--bg-alt); stroke-width: 9; }
 .skill-circle { fill: none; stroke: url(#skillGrad); stroke-width: 9; stroke-linecap: round; stroke-dasharray: 314; stroke-dashoffset: 314; transition: stroke-dashoffset 1.4s cubic-bezier(.16,1,.3,1); }
-.skill-label-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 1.3rem; color: var(--accent); }
+.skill-label-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 1.3rem; color: var(--primary); }
 .personal-skill h4 { font-size: 0.82rem; font-weight: 600; color: var(--text-mid); }
 
 /* ========== IN PROGRESS BADGE ========== */
-.badge-progress { display: inline-flex; align-items: center; gap: 5px; background: rgba(200,151,58,0.12); color: var(--accent); border: 1px solid rgba(200,151,58,0.4); border-radius: 20px; padding: 3px 10px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 10px; }
-.badge-progress::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 1.5s infinite; }
+.badge-progress { display: inline-flex; align-items: center; gap: 5px; background: rgba(58,123,213,0.12); color: var(--primary); border: 1px solid rgba(58,123,213,0.4); border-radius: 20px; padding: 3px 10px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 10px; }
+.badge-progress::before { content: ''; width: 6px; height: 6px; background: var(--primary); border-radius: 50%; animation: pulse 1.5s infinite; }
 @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.4;transform:scale(1.4);} }
 
 /* ========== PROJECTS ========== */
@@ -285,7 +285,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Poppins', sans-s
       <a href="https://github.com/y97856899" class="social-icon" target="_blank"><i class="fab fa-github"></i></a>
       <a href="https://www.linkedin.com/in/yousufalshaili/" class="social-icon" target="_blank"><i class="fab fa-linkedin"></i></a>
       <a href="https://wa.me/96897856899" class="social-icon" target="_blank"><i class="fab fa-whatsapp"></i></a>
-      <a href="mailto:mr.yousufalshaaili@gmail.com" class="social-icon"><i class="fas fa-envelope"></i></a>
+      <a href="/cdn-cgi/l/email-protection#5f322d7126302a2c2a393e332c373e3e3633361f38323e3633713c3032" class="social-icon"><i class="fas fa-envelope"></i></a>
     </div>
   </div>
   <div class="scroll-indicator">
@@ -319,7 +319,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Poppins', sans-s
           </div>
           <div class="info-item">
             <span class="info-title"><i class="fas fa-envelope"></i> Email:</span>
-            <span class="info-value">mr.yousufalshaaili@gmail.com</span>
+            <span class="info-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="69041b4710061c1a1c0f08051a010808000500290e04080005470a0604">[email&#160;protected]</a></span>
           </div>
           <div class="info-item">
             <span class="info-title"><i class="fas fa-graduation-cap"></i> Education:</span>
@@ -510,7 +510,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Poppins', sans-s
           <defs>
             <linearGradient id="skillGrad" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" style="stop-color:#2c3e6b"/>
-              <stop offset="100%" style="stop-color:#c8973a"/>
+              <stop offset="100%" style="stop-color:#3a7bd5"/>
             </linearGradient>
           </defs>
         </svg>
@@ -792,9 +792,9 @@ body { background: var(--bg); color: var(--text); font-family: 'Poppins', sans-s
           <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
           <div class="contact-details"><h3>Location</h3><p>Muscat-Seeb, Oman</p></div>
         </div>
-        <a href="mailto:mr.yousufalshaaili@gmail.com" class="contact-card">
+        <a href="/cdn-cgi/l/email-protection#19746b3760766c6a6c7f78756a717878707570597e74787075377a7674" class="contact-card">
           <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-          <div class="contact-details"><h3>Email</h3><p>mr.yousufalshaaili@gmail.com</p></div>
+          <div class="contact-details"><h3>Email</h3><p><span class="__cf_email__" data-cfemail="cea3bce0b7a1bbbdbba8afa2bda6afafa7a2a78ea9a3afa7a2e0ada1a3">[email&#160;protected]</span></p></div>
         </a>
         <a href="https://wa.me/96897856899" target="_blank" class="contact-card">
           <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
@@ -855,7 +855,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Poppins', sans-s
         <a href="https://github.com/y97856899" class="social-icon" target="_blank"><i class="fab fa-github"></i></a>
         <a href="https://www.linkedin.com/in/yousufalshaili/" class="social-icon" target="_blank"><i class="fab fa-linkedin"></i></a>
         <a href="https://wa.me/96897856899" class="social-icon" target="_blank"><i class="fab fa-whatsapp"></i></a>
-        <a href="mailto:mr.yousufalshaaili@gmail.com" class="social-icon"><i class="fas fa-envelope"></i></a>
+        <a href="/cdn-cgi/l/email-protection#b1dcc39fc8dec4c2c4d7d0ddc2d9d0d0d8ddd8f1d6dcd0d8dd9fd2dedc" class="social-icon"><i class="fas fa-envelope"></i></a>
       </div>
     </div>
     <div class="footer-bottom"><p>© 2025 Yousuf Alshaaili. All Rights Reserved.</p></div>
@@ -865,7 +865,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Poppins', sans-s
 <!-- Back to Top -->
 <button id="back-to-top" class="back-to-top"><i class="fas fa-arrow-up"></i></button>
 
-<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script>
 // ── Preloader ──
 window.addEventListener('load', () => {
@@ -879,10 +879,10 @@ if (typeof particlesJS !== 'undefined') {
   particlesJS('particles-js', {
     particles: {
       number: { value: 60, density: { enable: true, value_area: 900 } },
-      color: { value: '#c8973a' }, shape: { type: 'circle' },
+      color: { value: '#3a7bd5' }, shape: { type: 'circle' },
       opacity: { value: 0.22, random: true },
       size: { value: 3, random: true },
-      line_linked: { enable: true, distance: 140, color: '#c8973a', opacity: 0.10, width: 1 },
+      line_linked: { enable: true, distance: 140, color: '#3a7bd5', opacity: 0.10, width: 1 },
       move: { enable: true, speed: 1.2, direction: 'none', random: true, out_mode: 'out' }
     },
     interactivity: { detect_on: 'canvas', events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: true, mode: 'push' } } },
@@ -954,18 +954,4 @@ const secObs = new IntersectionObserver(entries => {
     });
   });
 }, { threshold: 0.2 });
-document.querySelectorAll('#skills').forEach(s => secObs.observe(s));
-
-// ── Tabs ──
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById(btn.dataset.target + '-pane').classList.add('active');
-  });
-});
-</script>
-
-</body>
-</html>
+document.querySelect

@@ -1,575 +1,940 @@
-<html lang="en"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yousuf Alshaaili</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="animations.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yousuf Alshaaili</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ========== ROOT ========== */
+:root {
+  --primary: #2c3e6b;
+  --primary-dark: #1a2540;
+  --accent: #c8973a;
+  --accent-light: #e6b450;
+  --bg: #faf7f2;
+  --bg-alt: #f0ebe0;
+  --bg-card: #ffffff;
+  --text: #2c2c3e;
+  --text-mid: #5a5a72;
+  --text-light: #8a8a9a;
+  --border: #e2d9c5;
+  --shadow: 0 5px 20px rgba(0,0,0,0.08);
+  --shadow-hover: 0 10px 30px rgba(0,0,0,0.13);
+  --radius: 12px;
+  --transition: all 0.3s ease;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'Poppins', sans-serif; font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-alt); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+/* ========== PRELOADER ========== */
+.preloader { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s ease; }
+.loader { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ========== NAVBAR ========== */
+.navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(28, 35, 60, 0.96); backdrop-filter: blur(12px); transition: var(--transition); }
+.navbar.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.2); }
+.navbar-container { display: flex; align-items: center; justify-content: space-between; padding: 0 6%; height: 70px; max-width: 1300px; margin: 0 auto; }
+.logo { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 700; color: #fff; letter-spacing: -0.02em; cursor: pointer; }
+.logo span { color: var(--accent); }
+.nav-menu { display: flex; list-style: none; gap: 4px; }
+.nav-link { font-size: 0.82rem; font-weight: 500; color: rgba(255,255,255,0.7); text-decoration: none; padding: 7px 14px; border-radius: 8px; transition: var(--transition); letter-spacing: 0.02em; }
+.nav-link:hover, .nav-link.active { color: #fff; background: rgba(200,151,58,0.25); }
+.menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.bar { width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: var(--transition); }
+
+/* ========== HOME ========== */
+.home-section { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: linear-gradient(135deg, #1a2540 0%, #2c3e6b 60%, #1e3a5f 100%); padding: 100px 6% 60px; }
+.particles-container { position: absolute; inset: 0; z-index: 0; }
+.home-content { position: relative; z-index: 1; text-align: center; max-width: 900px; margin: 0 auto; }
+.text-content { margin-bottom: 32px; }
+.glitch { font-family: 'Montserrat', sans-serif; font-size: clamp(2.2rem, 6vw, 4.5rem); font-weight: 700; color: #fff; letter-spacing: -0.02em; margin-bottom: 16px; line-height: 1.1; }
+.typing-container { font-size: 1.2rem; color: rgba(255,255,255,0.75); margin-bottom: 10px; min-height: 2em; }
+.static-text { color: rgba(255,255,255,0.75); }
+.typing { color: var(--accent-light); font-weight: 600; }
+.cursor { display: inline-block; width: 2px; height: 1em; background: var(--accent-light); margin-left: 2px; vertical-align: middle; animation: blink 1s step-start infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.subtitle { font-size: 1rem; color: rgba(255,255,255,0.55); margin-bottom: 32px; letter-spacing: 0.04em; }
+.cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 36px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border-radius: 10px; font-family: 'Poppins', sans-serif; font-size: 0.9rem; font-weight: 600; text-decoration: none; cursor: pointer; border: none; transition: var(--transition); }
+.primary-btn { background: var(--accent); color: #fff; box-shadow: 0 4px 18px rgba(200,151,58,0.35); }
+.primary-btn:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(200,151,58,0.45); }
+.secondary-btn { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.4); }
+.secondary-btn:hover { background: rgba(255,255,255,0.1); border-color: #fff; transform: translateY(-2px); }
+.social-icons { display: flex; justify-content: center; gap: 14px; }
+.social-icon { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.75); font-size: 1.05rem; text-decoration: none; transition: var(--transition); border: 1px solid rgba(255,255,255,0.15); }
+.social-icon:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-3px); }
+.scroll-indicator { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.mouse { width: 24px; height: 38px; border: 2px solid rgba(255,255,255,0.3); border-radius: 12px; display: flex; justify-content: center; padding-top: 5px; }
+.wheel { width: 3px; height: 8px; background: rgba(255,255,255,0.5); border-radius: 2px; animation: scroll-wheel 1.5s ease infinite; }
+@keyframes scroll-wheel { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(10px); opacity: 0; } }
+.arrow { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.arrow span { display: block; width: 8px; height: 8px; border-right: 2px solid rgba(255,255,255,0.3); border-bottom: 2px solid rgba(255,255,255,0.3); transform: rotate(45deg); animation: arrow-bounce 1.5s ease infinite; }
+.arrow span:nth-child(2) { animation-delay: 0.15s; }
+.arrow span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes arrow-bounce { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+/* ========== SECTIONS ========== */
+.section { padding: 90px 6%; }
+.section-container { max-width: 1200px; margin: 0 auto; }
+.section-title { text-align: center; margin-bottom: 56px; }
+.section-title h2 { font-family: 'Montserrat', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.4rem); font-weight: 700; color: var(--primary); margin-bottom: 12px; letter-spacing: -0.01em; }
+.underline { width: 56px; height: 4px; background: linear-gradient(90deg, var(--accent), var(--accent-light)); border-radius: 2px; margin: 0 auto; }
+.alt-bg { background: var(--bg-alt); }
+
+/* ========== ABOUT ========== */
+.about-content { display: grid; grid-template-columns: 320px 1fr; gap: 60px; align-items: start; }
+.about-image { position: relative; }
+.image-container { width: 280px; height: 280px; border-radius: 20px; overflow: hidden; background: var(--bg-card); border: 3px solid var(--border); display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
+.image-placeholder { font-size: 6rem; color: var(--accent); opacity: 0.6; }
+.image-border { position: absolute; top: 14px; left: 14px; width: 280px; height: 280px; border: 3px solid var(--accent); border-radius: 20px; opacity: 0.4; }
+.about-text p { color: var(--text-mid); margin-bottom: 20px; font-size: 0.96rem; line-height: 1.8; }
+.personal-info { background: var(--bg-alt); border-radius: var(--radius); padding: 24px; margin-bottom: 28px; border: 1px solid var(--border); }
+.info-item { display: flex; align-items: flex-start; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--border); }
+.info-item:last-child { border-bottom: none; }
+.info-title { font-weight: 600; font-size: 0.85rem; color: var(--primary); min-width: 110px; display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
+.info-title i { color: var(--accent); }
+.info-value { font-size: 0.88rem; color: var(--text-mid); }
+
+/* ========== EXPERIENCE ========== */
+.timeline { position: relative; padding-left: 36px; }
+.timeline::before { content: ''; position: absolute; left: 14px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(to bottom, var(--accent), var(--border)); }
+.timeline-item { position: relative; margin-bottom: 36px; }
+.timeline-icon { position: absolute; left: -43px; top: 2px; width: 36px; height: 36px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.9rem; box-shadow: 0 0 0 4px var(--bg-alt); z-index: 1; }
+.alt-bg .timeline-icon { box-shadow: 0 0 0 4px var(--bg-alt); }
+.timeline-content { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 24px; box-shadow: var(--shadow); transition: var(--transition); }
+.timeline-content:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+.timeline-content h3 { font-family: 'Montserrat', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+.timeline-content h4 { font-size: 0.88rem; font-weight: 500; color: var(--accent); margin-bottom: 6px; }
+.timeline-date { font-size: 0.76rem; font-weight: 600; color: var(--text-light); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 10px; display: inline-block; background: var(--bg-alt); padding: 3px 10px; border-radius: 20px; }
+.timeline-details { padding-left: 16px; margin-top: 8px; }
+.timeline-details li { font-size: 0.86rem; color: var(--text-mid); margin-bottom: 5px; }
+.tl-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.tl-tag { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 20px; padding: 3px 11px; font-size: 0.72rem; font-weight: 500; color: var(--text-mid); }
+
+/* ========== SKILLS ========== */
+.skills-container { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+.skills-category h3 { font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 24px; padding-bottom: 10px; border-bottom: 2px solid var(--border); }
+.skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.skill-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 14px; text-align: center; transition: var(--transition); }
+.skill-item:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--shadow); }
+.skill-icon { font-size: 1.6rem; color: var(--accent); margin-bottom: 8px; }
+.skill-item h4 { font-size: 0.78rem; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+.skill-progress-container { height: 5px; background: var(--bg-alt); border-radius: 5px; overflow: hidden; }
+.skill-progress { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 5px; width: 0; transition: width 1.2s cubic-bezier(.16,1,.3,1); }
+.personal-skills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.personal-skill { text-align: center; }
+.skill-chart { position: relative; width: 120px; height: 120px; margin: 0 auto 10px; }
+.skill-svg { width: 120px; height: 120px; transform: rotate(-90deg); }
+.skill-circle-bg { fill: none; stroke: var(--bg-alt); stroke-width: 8; }
+.skill-circle { fill: none; stroke: url(#skillGrad); stroke-width: 8; stroke-linecap: round; stroke-dasharray: 314; stroke-dashoffset: 314; transition: stroke-dashoffset 1.4s cubic-bezier(.16,1,.3,1); }
+.skill-percentage { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-weight: 700; font-size: 1rem; color: var(--primary); font-family: 'Montserrat', sans-serif; }
+.personal-skill h4 { font-size: 0.82rem; font-weight: 600; color: var(--text-mid); }
+
+/* ========== PROJECTS ========== */
+.projects-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.project-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; position: relative; transition: var(--transition); box-shadow: var(--shadow); }
+.project-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: rgba(200,151,58,0.4); }
+.project-img { height: 140px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); display: flex; align-items: center; justify-content: center; }
+.project-img-placeholder { font-size: 3rem; color: rgba(255,255,255,0.3); }
+.project-content { padding: 22px; }
+.project-content h3 { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+.project-content p { font-size: 0.85rem; color: var(--text-mid); margin-bottom: 14px; line-height: 1.65; }
+.project-tech { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.project-tech span { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 20px; padding: 3px 10px; font-size: 0.72rem; font-weight: 500; color: var(--text-mid); }
+.project-links { display: flex; gap: 10px; }
+.project-link { display: inline-flex; align-items: center; gap: 5px; font-size: 0.8rem; font-weight: 600; color: var(--primary); text-decoration: none; border: 1px solid var(--border); padding: 6px 13px; border-radius: 7px; transition: var(--transition); }
+.project-link:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+.project-overlay { position: absolute; inset: 0; background: rgba(28,35,60,0.9); display: flex; align-items: center; justify-content: center; opacity: 0; transition: var(--transition); border-radius: 16px; }
+.project-card:hover .project-overlay { opacity: 0; }
+.overlay-content { text-align: center; color: #fff; }
+.overlay-content h3 { font-size: 1.1rem; margin-bottom: 6px; }
+.overlay-content p { font-size: 0.85rem; opacity: 0.75; }
+
+/* ========== ACHIEVEMENTS ========== */
+.achievements-container {}
+.achievements-tabs { display: flex; gap: 4px; justify-content: center; margin-bottom: 36px; }
+.tab-btn { padding: 10px 28px; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 0.88rem; font-weight: 600; cursor: pointer; border: none; background: var(--bg-card); color: var(--text-mid); border: 1px solid var(--border); transition: var(--transition); }
+.tab-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
+.achievement-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.achievement-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; display: flex; gap: 16px; align-items: flex-start; transition: var(--transition); }
+.achievement-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: rgba(200,151,58,0.4); }
+.achievement-icon { width: 46px; height: 46px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.1rem; flex-shrink: 0; }
+.achievement-details h3 { font-size: 0.9rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; line-height: 1.3; }
+.achievement-details p { font-size: 0.82rem; color: var(--text-mid); margin-bottom: 6px; }
+.achievement-date { font-size: 0.72rem; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; }
+.certifications-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.certification-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; display: flex; gap: 14px; align-items: flex-start; transition: var(--transition); }
+.certification-item:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow); }
+.certification-year { font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; min-width: 42px; padding-top: 2px; }
+.certification-content h3 { font-size: 0.85rem; font-weight: 600; color: var(--primary); line-height: 1.3; }
+.certification-content p { font-size: 0.78rem; color: var(--text-mid); margin-top: 3px; }
+
+/* ========== CONTACT ========== */
+.contact-container { display: grid; grid-template-columns: 1fr 1.4fr; gap: 50px; align-items: start; }
+.contact-info { display: flex; flex-direction: column; gap: 14px; }
+.contact-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; display: flex; gap: 16px; align-items: center; transition: var(--transition); box-shadow: var(--shadow); }
+.contact-card:hover { border-color: var(--accent); transform: translateX(4px); }
+.contact-icon { width: 44px; height: 44px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1rem; flex-shrink: 0; }
+.contact-details h3 { font-size: 0.82rem; font-weight: 700; color: var(--primary); margin-bottom: 2px; }
+.contact-details p { font-size: 0.85rem; color: var(--text-mid); }
+.contact-form-container { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; box-shadow: var(--shadow); }
+.contact-form { display: flex; flex-direction: column; gap: 18px; }
+.form-group { position: relative; }
+.form-group input, .form-group textarea {
+  width: 100%; padding: 14px 16px; border: 1px solid var(--border); border-radius: 9px;
+  background: var(--bg-alt); font-family: 'Poppins', sans-serif; font-size: 0.9rem;
+  color: var(--text); outline: none; transition: var(--transition); resize: none;
+}
+.form-group textarea { height: 120px; }
+.form-group input:focus, .form-group textarea:focus { border-color: var(--accent); background: #fff; }
+.submit-btn { display: flex; align-items: center; justify-content: center; gap: 8px; }
+
+/* ========== FOOTER ========== */
+.footer { background: var(--primary-dark); color: rgba(255,255,255,0.55); padding: 32px 6%; }
+.footer-container { max-width: 1200px; margin: 0 auto; }
+.footer-content { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; flex-wrap: wrap; gap: 16px; }
+.footer-logo { font-family: 'Montserrat', sans-serif; font-size: 1.3rem; font-weight: 700; color: #fff; }
+.footer-logo span { color: var(--accent); }
+.footer-social { display: flex; gap: 10px; }
+.footer-bottom { text-align: center; font-size: 0.82rem; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 18px; }
+
+/* ========== BACK TO TOP ========== */
+.back-to-top { position: fixed; bottom: 28px; right: 28px; width: 44px; height: 44px; background: var(--accent); color: #fff; border: none; border-radius: 50%; cursor: pointer; display: none; align-items: center; justify-content: center; font-size: 1rem; box-shadow: 0 4px 16px rgba(200,151,58,0.4); transition: var(--transition); z-index: 999; }
+.back-to-top.visible { display: flex; }
+.back-to-top:hover { transform: translateY(-3px); background: var(--accent-light); }
+
+/* ========== ANIMATE ========== */
+.animate-in { animation: fadeIn 0.8s ease both; }
+.animate-item { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.animate-item.visible { opacity: 1; transform: translateY(0); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 960px) {
+  .section { padding: 70px 4%; }
+  .about-content { grid-template-columns: 1fr; }
+  .skills-container { grid-template-columns: 1fr; }
+  .projects-container { grid-template-columns: 1fr; }
+  .achievement-cards { grid-template-columns: 1fr 1fr; }
+  .certifications-list { grid-template-columns: 1fr 1fr; }
+  .contact-container { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .nav-menu { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0; background: rgba(28,35,60,0.98); padding: 16px; gap: 4px; }
+  .nav-menu.open { display: flex; }
+  .menu-toggle { display: flex; }
+  .glitch { font-size: 2rem; }
+  .skills-grid { grid-template-columns: repeat(2,1fr); }
+  .personal-skills { grid-template-columns: repeat(2,1fr); }
+  .achievement-cards { grid-template-columns: 1fr; }
+  .certifications-list { grid-template-columns: 1fr; }
+  .footer-content { flex-direction: column; text-align: center; }
+}
+</style>
 </head>
 <body>
-    <!-- Preloader -->
-    <div class="preloader" style="opacity: 0; display: none;">
-        <div class="loader"></div>
+
+<!-- Preloader -->
+<div class="preloader" id="preloader"><div class="loader"></div></div>
+
+<!-- Navigation -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-container">
+    <div class="logo"><span>Y</span>ousuf</div>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
     </div>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="#home" class="nav-link active">Home</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#experience" class="nav-link">Experience</a></li>
+      <li><a href="#skills" class="nav-link">Skills</a></li>
+      <li><a href="#projects" class="nav-link">Projects</a></li>
+      <li><a href="#achievements" class="nav-link">Achievements</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+  </div>
+</nav>
 
-    
+<!-- Home Section -->
+<section id="home" class="home-section animate-in">
+  <div class="particles-container" id="particles-js"></div>
+  <div class="home-content">
+    <div class="text-content">
+      <h1 class="glitch" data-text="Yousuf Alshaaili">Yousuf Alshaaili</h1>
+      <div class="typing-container">
+        <span class="static-text">I'm a </span>
+        <span class="typing" id="typing"></span><span class="cursor"></span>
+      </div>
+      <p class="subtitle">Specializing in Intelligent Systems &amp; Data Science</p>
+      <div class="cta-buttons">
+        <a href="#contact" class="btn primary-btn">Contact Me</a>
+        <a href="#projects" class="btn secondary-btn">View Projects</a>
+      </div>
+    </div>
+    <div class="social-icons">
+      <a href="https://github.com/y97856899" class="social-icon" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/yousufalshaili/" class="social-icon" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="#contact" class="social-icon"><i class="fas fa-envelope"></i></a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="mouse"><div class="wheel"></div></div>
+    <div class="arrow"><span></span><span></span><span></span></div>
+  </div>
+</section>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="navbar-container">
-            <div class="logo">
-                <span>Y</span>ousuf
-            </div>
-            <div class="menu-toggle">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#experience" class="nav-link">Experience</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#achievements" class="nav-link">Achievements</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
+<!-- About Section -->
+<section id="about" class="section">
+  <div class="section-container">
+    <div class="section-title"><h2>About Me</h2><div class="underline"></div></div>
+    <div class="about-content">
+      <div class="about-image">
+        <div class="image-container">
+          <div class="image-placeholder"><i class="fas fa-user"></i></div>
         </div>
-    </nav>
-
-    <!-- Home Section -->
-    <section id="home" class="home-section animate-in">
-        <div class="particles-container" id="particles-js"><canvas class="particles-js-canvas-el" style="width: 100%; height: 100%;" width="1264" height="941"></canvas></div>
-        <div class="home-content">
-            <div class="text-content">
-                <h1 class="glitch" data-text="Yousuf Alshaaili">Yousuf Alshaaili</h1>
-                <div class="typing-container">
-                    <span class="static-text">I'm a </span>
-                    <span class="typing">Develope</span>
-                </div>
-                <p class="subtitle">Specializing in Intelligent Systems &amp; Data Science</p>
-                <div class="cta-buttons">
-                    <a href="#contact" class="btn primary-btn">Contact Me</a>
-                    <a href="#projects" class="btn secondary-btn">View Projects</a>
-                </div>
-            </div>
-            <div class="social-icons">
-                <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/yousufalshaili/" class="social-icon"><i class="fab fa-linkedin"></i></a>
-                <a href="#contact" class="social-icon"><i class="fas fa-envelope"></i></a>
-            </div>
+        <div class="image-border"></div>
+      </div>
+      <div class="about-text">
+        <p>As a final-year student specializing in Intelligent Systems and Data Science, I am passionate about solving real-world problems through AI, deep learning, and cybersecurity. I aim to contribute to cutting-edge advancements in the tech industry by leveraging strong programming and analytical skills.</p>
+        <p>I've competed internationally — earning <strong>3rd place at TechOlympics 2025 in Tehran</strong> — and serve as a Drone AI Trainer for the national Ministry of Transport competition, helping shape the next generation of Omani tech leaders.</p>
+        <div class="personal-info">
+          <div class="info-item">
+            <span class="info-title"><i class="fas fa-map-marker-alt"></i> Location:</span>
+            <span class="info-value">Muscat-Seeb, Oman 🇴🇲</span>
+          </div>
+          <div class="info-item">
+            <span class="info-title"><i class="fas fa-phone"></i> Phone:</span>
+            <span class="info-value">+968 97856899</span>
+          </div>
+          <div class="info-item">
+            <span class="info-title"><i class="fas fa-envelope"></i> Email:</span>
+            <span class="info-value">alshaili37@gmail.com</span>
+          </div>
+          <div class="info-item">
+            <span class="info-title"><i class="fas fa-graduation-cap"></i> Education:</span>
+            <span class="info-value">Computer Science, Sultan Qaboos University (2021–2026)</span>
+          </div>
+          <div class="info-item">
+            <span class="info-title"><i class="fab fa-linkedin"></i> LinkedIn:</span>
+            <span class="info-value">linkedin.com/in/yousufalshaili</span>
+          </div>
         </div>
-        <div class="scroll-indicator">
-            <div class="mouse">
-                <div class="wheel"></div>
-            </div>
-            <div class="arrow">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+        <a href="#contact" class="btn primary-btn">Get In Touch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Experience Section -->
+<section id="experience" class="section alt-bg">
+  <div class="section-container">
+    <div class="section-title"><h2>Experience &amp; Education</h2><div class="underline"></div></div>
+    <div class="timeline">
+
+      <!-- NEW: Drone Trainer -->
+      <div class="timeline-item animate-item">
+        <div class="timeline-icon"><i class="fas fa-helicopter"></i></div>
+        <div class="timeline-content">
+          <h3>AI Drone Trainer</h3>
+          <h4>Ministry of Transport, Communications &amp; IT — Oman</h4>
+          <p class="timeline-date">Jun 2025 – Mar 2026 · Part-time</p>
+          <ul class="timeline-details">
+            <li>Delivered training for the 3rd Edition of the national Oman Competition for AI-Enhanced Drones.</li>
+            <li>Mentored participants in machine learning concepts applied to UAV technology under Dr. Said Al-Abri.</li>
+            <li>Contributing to shaping a generation capable of leading digital transformation in Oman (Vision 2040).</li>
+          </ul>
+          <div class="tl-tags"><span class="tl-tag">Drone AI</span><span class="tl-tag">Training</span><span class="tl-tag">AI</span><span class="tl-tag">Vision 2040</span></div>
         </div>
-    </section>
+      </div>
 
-    <!-- About Section -->
-    <section id="about" class="section">
-        <div class="section-container">
-            <div class="section-title">
-                <h2>About Me</h2>
-                <div class="underline"></div>
-            </div>
-            <div class="about-content">
-                <div class="about-image">
-                    <div class="image-container">
-                        <div class="image-placeholder">
-                            <i class="fas fa-user"></i>
-                        </div>
-                    </div>
-                    <div class="image-border"></div>
-                </div>
-                <div class="about-text">
-                    <p>As a student specializing in Intelligent Systems and Data Science, I am passionate about solving real-world problems through innovation and technology. I aim to contribute to cutting-edge advancements in the tech industry by leveraging my strong programming and analytical skills.</p>
-                    <div class="personal-info">
-                        <div class="info-item">
-                            <span class="info-title"><i class="fas fa-map-marker-alt"></i> Location:</span>
-                            <span class="info-value">Muscat-Seeb, Oman</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-title"><i class="fas fa-phone"></i> Phone:</span>
-                            <span class="info-value">+968 97856899</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-title"><i class="fas fa-envelope"></i> Email:</span>
-                            <span class="info-value">mr.yousufalshaaili@gmail.com</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-title"><i class="fas fa-graduation-cap"></i> Education:</span>
-                            <span class="info-value">Computer Science, Sultan Qaboos University</span>
-                        </div>
-                    </div>
-                    <a href="#contact" class="btn primary-btn">Get In Touch</a>
-                </div>
-            </div>
+      <!-- NEW: Oman Broadband -->
+      <div class="timeline-item animate-item">
+        <div class="timeline-icon"><i class="fas fa-network-wired"></i></div>
+        <div class="timeline-content">
+          <h3>IT Service Desk</h3>
+          <h4>Oman Broadband</h4>
+          <p class="timeline-date">Jun 2025 – Aug 2025 · Internship</p>
+          <ul class="timeline-details">
+            <li>Provided first and second-line IT support in a national broadband infrastructure environment.</li>
+            <li>Enhanced technical knowledge in network operations and enterprise ICT systems.</li>
+            <li>Collaborated with Qasim AL-Busaidi's team on Oman's digital connectivity expansion.</li>
+          </ul>
+          <div class="tl-tags"><span class="tl-tag">IT Operations</span><span class="tl-tag">Networking</span><span class="tl-tag">ICT</span></div>
         </div>
-    </section>
+      </div>
 
-    <!-- Experience Section -->
-    <section id="experience" class="section alt-bg">
-        <div class="section-container">
-            <div class="section-title">
-                <h2>Experience &amp; Education</h2>
-                <div class="underline"></div>
-            </div>
-            <div class="timeline">
-                <div class="timeline-item animate-item">
-                    <div class="timeline-icon">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <h3>Teaching Assistant</h3>
-                        <h4>Sultan Qaboos University</h4>
-                        <p class="timeline-date">2024</p>
-                        <ul class="timeline-details">
-                            <li>Assisted in delivering course content by supporting lectures and lab sessions.</li>
-                            <li>Graded assignments and lab work, providing timely and constructive feedback to support student improvement.</li>
-                            <li>Provided one-on-one or group academic support to students, including clarifying complex concepts and answering questions.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item animate-item">
-                    <div class="timeline-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <h3>Computer Science</h3>
-                        <h4>Sultan Qaboos University, College of Science</h4>
-                        <p class="timeline-date">2021-Present</p>
-                        <p>Major: Computer Science</p>
-                        <p>Specialization: Intelligent Systems and Data Science</p>
-                    </div>
-                </div>
-            </div>
+      <!-- EXISTING: Teaching Assistant -->
+      <div class="timeline-item animate-item">
+        <div class="timeline-icon"><i class="fas fa-briefcase"></i></div>
+        <div class="timeline-content">
+          <h3>Teaching Assistant</h3>
+          <h4>Sultan Qaboos University</h4>
+          <p class="timeline-date">Sep 2024 – Jan 2025</p>
+          <ul class="timeline-details">
+            <li>Assisted in delivering course content by supporting lectures and lab sessions.</li>
+            <li>Graded assignments and lab work, providing timely and constructive feedback to support student improvement.</li>
+            <li>Provided one-on-one or group academic support to students, including clarifying complex concepts and answering questions.</li>
+          </ul>
+          <div class="tl-tags"><span class="tl-tag">Teaching</span><span class="tl-tag">CS Education</span></div>
         </div>
-    </section>
+      </div>
 
-    <!-- Skills Section -->
-    <section id="skills" class="section">
-        <div class="section-container">
-            <div class="section-title">
-                <h2>Skills &amp; Abilities</h2>
-                <div class="underline"></div>
-            </div>
-            <div class="skills-container">
-                <div class="skills-category">
-                    <h3>Technical Skills</h3>
-                    <div class="skills-grid">
-                        <div class="skill-item animate-item" data-skill="Python" style="--i:1;">
-                            <div class="skill-icon">
-                                <i class="fab fa-python"></i>
-                            </div>
-                            <h4>Python</h4>
-                            <div class="skill-progress-container">
-                                <div class="skill-progress" data-progress="90"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item animate-item" data-skill="Java" style="--i:2;">
-                            <div class="skill-icon">
-                                <i class="fab fa-java"></i>
-                            </div>
-                            <h4>Java</h4>
-                            <div class="skill-progress-container">
-                                <div class="skill-progress" data-progress="80"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item animate-item" data-skill="Web Development" style="--i:3;">
-                            <div class="skill-icon">
-                                <i class="fas fa-code"></i>
-                            </div>
-                            <h4>Web Development</h4>
-                            <div class="skill-progress-container">
-                                <div class="skill-progress" data-progress="70"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item animate-item" data-skill="SQL" style="--i:4;">
-                            <div class="skill-icon">
-                                <i class="fas fa-database"></i>
-                            </div>
-                            <h4>SQL</h4>
-                            <div class="skill-progress-container">
-                                <div class="skill-progress" data-progress="70"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item animate-item" data-skill="MATLAB" style="--i:5;">
-                            <div class="skill-icon">
-                                <i class="fas fa-calculator"></i>
-                            </div>
-                            <h4>MATLAB</h4>
-                            <div class="skill-progress-container">
-                                <div class="skill-progress" data-progress="30"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item animate-item" data-skill="Microsoft Office" style="--i:6;">
-                            <div class="skill-icon">
-                                <i class="fas fa-file-word"></i>
-                            </div>
-                            <h4>Microsoft Office</h4>
-                            <div class="skill-progress-container">
-                                <div class="skill-progress" data-progress="95"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="skills-category">
-                    <h3>Personal Skills</h3>
-                    <div class="personal-skills">
-                        <div class="personal-skill animate-item" style="--i:1;">
-                            <div class="skill-chart" data-percentage="90">
-                                <svg class="skill-svg">
-                                    <circle class="skill-circle-bg" cx="60" cy="60" r="50"></circle>
-                                    <circle class="skill-circle" cx="60" cy="60" r="50"></circle>
-                                </svg>
-                                <div class="skill-percentage">90%</div>
-                            </div>
-                            <h4>Problem Solving</h4>
-                        </div>
-                        <div class="personal-skill animate-item" style="--i:2;">
-                            <div class="skill-chart" data-percentage="85">
-                                <svg class="skill-svg">
-                                    <circle class="skill-circle-bg" cx="60" cy="60" r="50"></circle>
-                                    <circle class="skill-circle" cx="60" cy="60" r="50"></circle>
-                                </svg>
-                                <div class="skill-percentage">85%</div>
-                            </div>
-                            <h4>Communication</h4>
-                        </div>
-                        <div class="personal-skill animate-item" style="--i:3;">
-                            <div class="skill-chart" data-percentage="80">
-                                <svg class="skill-svg">
-                                    <circle class="skill-circle-bg" cx="60" cy="60" r="50"></circle>
-                                    <circle class="skill-circle" cx="60" cy="60" r="50"></circle>
-                                </svg>
-                                <div class="skill-percentage">80%</div>
-                            </div>
-                            <h4>Leadership</h4>
-                        </div>
-                        <div class="personal-skill animate-item" style="--i:4;">
-                            <div class="skill-chart" data-percentage="95">
-                                <svg class="skill-svg">
-                                    <circle class="skill-circle-bg" cx="60" cy="60" r="50"></circle>
-                                    <circle class="skill-circle" cx="60" cy="60" r="50"></circle>
-                                </svg>
-                                <div class="skill-percentage">95%</div>
-                            </div>
-                            <h4>Teamworking</h4>
-                        </div>
-                        <div class="personal-skill animate-item" style="--i:4;">
-                            <div class="skill-chart" data-percentage="95">
-                                <svg class="skill-svg">
-                                    <circle class="skill-circle-bg" cx="60" cy="60" r="50"></circle>
-                                    <circle class="skill-circle" cx="60" cy="60" r="50"></circle>
-                                </svg>
-                                <div class="skill-percentage">100%</div>
-                            </div>
-                            <h4>Time management</h4>
-                        </div>
-                        <div class="personal-skill animate-item" style="--i:4;">
-                            <div class="skill-chart" data-percentage="95">
-                                <svg class="skill-svg">
-                                    <circle class="skill-circle-bg" cx="60" cy="60" r="50"></circle>
-                                    <circle class="skill-circle" cx="60" cy="60" r="50"></circle>
-                                </svg>
-                                <div class="skill-percentage">90%</div>
-                            </div>
-                            <h4>Creativity</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <!-- EXISTING: BSc -->
+      <div class="timeline-item animate-item">
+        <div class="timeline-icon"><i class="fas fa-graduation-cap"></i></div>
+        <div class="timeline-content">
+          <h3>Computer Science</h3>
+          <h4>Sultan Qaboos University, College of Science</h4>
+          <p class="timeline-date">2021 – Present</p>
+          <p>Major: Computer Science</p>
+          <p>Specialization: Intelligent Systems and Data Science</p>
+          <p style="margin-top:8px;font-size:0.84rem;color:var(--text-mid);">Key courses: Machine Learning · Computer Security · Pattern Recognition · Arabic NLP · Compiler Design · Computer Vision</p>
+          <div class="tl-tags"><span class="tl-tag">AI / ML</span><span class="tl-tag">Cybersecurity</span><span class="tl-tag">Data Science</span></div>
         </div>
-    </section>
+      </div>
 
-    <!-- Projects Section -->
-    <section id="projects" class="section alt-bg">
-        <div class="section-container">
-            <div class="section-title">
-                <h2>Projects</h2>
-                <div class="underline"></div>
-            </div>
-            <div class="projects-container">
-                <div class="project-card animate-item" style="--i:1;">
-                    <div class="project-img">
-                        <div class="project-img-placeholder">
-                            <i class="fas fa-users"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Silah - Entrepreneur Support Platform</h3>
-                        <p>Developed a web-based platform to facilitate connections between entrepreneurs, investors, and mentors, making business growth more accessible.</p>
-                        <div class="project-tech">
-                            <span>Web Development</span>
-                            <span>JavaScript</span>
-                            <span>PHP</span>
-                            <span>SQL</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> View Project</a>
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
-                    <div class="project-overlay">
-                        <div class="overlay-content">
-                            <h3>Silah Platform</h3>
-                            <p>Click to view details</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card animate-item" style="--i:2;">
-                    <div class="project-img">
-                        <div class="project-img-placeholder">
-                            <i class="fas fa-calendar-alt"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Booking Database System</h3>
-                        <p>Designed and developed a booking management system using SQL, enabling efficient scheduling and resource allocation.</p>
-                        <div class="project-tech">
-                            <span>Database Design</span>
-                            <span>SQL</span>
-                            <span>PHP</span>
-                            <span>JavaScript</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> View Project</a>
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
-                    <div class="project-overlay">
-                        <div class="overlay-content">
-                            <h3>Booking System</h3>
-                            <p>Click to view details</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills Section -->
+<section id="skills" class="section">
+  <div class="section-container">
+    <div class="section-title"><h2>Skills &amp; Abilities</h2><div class="underline"></div></div>
+    <div class="skills-container">
+      <div class="skills-category">
+        <h3>Technical Skills</h3>
+        <div class="skills-grid">
+          <div class="skill-item animate-item" data-skill="Python" style="--i:1;">
+            <div class="skill-icon"><i class="fab fa-python"></i></div>
+            <h4>Python</h4>
+            <div class="skill-progress-container"><div class="skill-progress" data-progress="90"></div></div>
+          </div>
+          <div class="skill-item animate-item" data-skill="PyTorch" style="--i:2;">
+            <div class="skill-icon"><i class="fas fa-fire"></i></div>
+            <h4>PyTorch</h4>
+            <div class="skill-progress-container"><div class="skill-progress" data-progress="82"></div></div>
+          </div>
+          <div class="skill-item animate-item" data-skill="Deep Learning" style="--i:3;">
+            <div class="skill-icon"><i class="fas fa-brain"></i></div>
+            <h4>Deep Learning</h4>
+            <div class="skill-progress-container"><div class="skill-progress" data-progress="80"></div></div>
+          </div>
+          <div class="skill-item animate-item" data-skill="Cybersecurity" style="--i:4;">
+            <div class="skill-icon"><i class="fas fa-shield-alt"></i></div>
+            <h4>Cybersecurity</h4>
+            <div class="skill-progress-container"><div class="skill-progress" data-progress="78"></div></div>
+          </div>
+          <div class="skill-item animate-item" data-skill="Web Dev" style="--i:5;">
+            <div class="skill-icon"><i class="fas fa-code"></i></div>
+            <h4>Web Dev</h4>
+            <div class="skill-progress-container"><div class="skill-progress" data-progress="70"></div></div>
+          </div>
+          <div class="skill-item animate-item" data-skill="SQL" style="--i:6;">
+            <div class="skill-icon"><i class="fas fa-database"></i></div>
+            <h4>SQL</h4>
+            <div class="skill-progress-container"><div class="skill-progress" data-progress="72"></div></div>
+          </div>
+          <div class="skill-item animate-item" data-skill="Java" style="--i:7;">
+            <div class="skill-icon"><i class="fab fa-java"></i></div>
+            <h4>Java</h4>
+            <div class="skill-progress-container"><div class="skill-progress" data-progress="75"></div></div>
+          </div>
+          <div class="skill-item animate-item" data-skill="Linux / Kali" style="--i:8;">
+            <div class="skill-icon"><i class="fab fa-linux"></i></div>
+            <h4>Linux / Kali</h4>
+            <div class="skill-progress-container"><div class="skill-progress" data-progress="72"></div></div>
+          </div>
+          <div class="skill-item animate-item" data-skill="Computer Vision" style="--i:9;">
+            <div class="skill-icon"><i class="fas fa-eye"></i></div>
+            <h4>Computer Vision</h4>
+            <div class="skill-progress-container"><div class="skill-progress" data-progress="75"></div></div>
+          </div>
+          <div class="skill-item animate-item" data-skill="AWS" style="--i:10;">
+            <div class="skill-icon"><i class="fab fa-aws"></i></div>
+            <h4>AWS Cloud</h4>
+            <div class="skill-progress-container"><div class="skill-progress" data-progress="60"></div></div>
+          </div>
+          <div class="skill-item animate-item" data-skill="Arabic NLP" style="--i:11;">
+            <div class="skill-icon"><i class="fas fa-language"></i></div>
+            <h4>Arabic NLP</h4>
+            <div class="skill-progress-container"><div class="skill-progress" data-progress="75"></div></div>
+          </div>
+          <div class="skill-item animate-item" data-skill="Microsoft Office" style="--i:12;">
+            <div class="skill-icon"><i class="fas fa-file-word"></i></div>
+            <h4>MS Office</h4>
+            <div class="skill-progress-container"><div class="skill-progress" data-progress="95"></div></div>
+          </div>
         </div>
-    </section>
-
-    <!-- Achievements Section -->
-    <section id="achievements" class="section">
-        <div class="section-container">
-            <div class="section-title">
-                <h2>Achievements &amp; Certifications</h2>
-                <div class="underline"></div>
+      </div>
+      <div class="skills-category">
+        <h3>Personal Skills</h3>
+        <svg width="0" height="0" style="position:absolute;">
+          <defs>
+            <linearGradient id="skillGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#2c3e6b"/>
+              <stop offset="100%" style="stop-color:#c8973a"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="personal-skills">
+          <div class="personal-skill animate-item" style="--i:1;">
+            <div class="skill-chart" data-percentage="90">
+              <svg class="skill-svg"><circle class="skill-circle-bg" cx="60" cy="60" r="50"></circle><circle class="skill-circle" cx="60" cy="60" r="50"></circle></svg>
+              <div class="skill-percentage">90%</div>
             </div>
-            <div class="achievements-container">
-                <div class="achievements-tabs">
-                    <button class="tab-btn active" data-target="achievements">Achievements</button>
-                    <button class="tab-btn" data-target="certifications">Certifications</button>
-                </div>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="achievements-pane">
-                        <div class="achievement-cards">
-                            <div class="achievement-card animate-item" style="--i:1;">
-                                <div class="achievement-icon">
-                                    <i class="fas fa-trophy"></i>
-                                </div>
-                                <div class="achievement-details">
-                                    <h3>Oman Competition for AI-Enhanced Drones</h3>
-                                    <p>First place in AI stage</p>
-                                    <span class="achievement-date">2024 - 2025</span>
-                                </div>
-                            </div>
-                            <div class="achievement-card animate-item" style="--i:2;">
-                                <div class="achievement-icon">
-                                    <i class="fas fa-award"></i>
-                                </div>
-                                <div class="achievement-details">
-                                    <h3>GCC Youth Summit</h3>
-                                    <p>Participation in Qatar Debate</p>
-                                    <span class="achievement-date">2025</span>
-                                </div>
-                            </div>
-                            <div class="achievement-card animate-item" style="--i:3;">
-                                <div class="achievement-icon">
-                                    <i class="fas fa-medal"></i>
-                                </div>
-                                <div class="achievement-details">
-                                    <h3>Oman Microsoft Office Specialist Championship</h3>
-                                    <p>Code Academy</p>
-                                    <span class="achievement-date">2024 - 2025</span>
-                                </div>
-                            </div>
-                            <div class="achievement-card animate-item" style="--i:4;">
-                                <div class="achievement-icon">
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <div class="achievement-details">
-                                    <h3>Stars of Science</h3>
-                                    <p>Participated in an innovation-focused reality program</p>
-                                    <span class="achievement-date">2023 - 2024</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="certifications-pane">
-                        <div class="certifications-list">
-                            <div class="certification-item animate-item" style="--i:1;">
-                                <div class="certification-year">2025</div>
-                                <div class="certification-content">
-                                    <h3>Oman Collegiate Programming Contest</h3>
-                                </div>
-                            </div>
-                            <div class="certification-item animate-item" style="--i:2;">
-                                <div class="certification-year">2025</div>
-                                <div class="certification-content">
-                                    <h3>Tahadi Mustadam Hackathon</h3>
-                                </div>
-                            </div>
-                            <div class="certification-item animate-item" style="--i:3;">
-                                <div class="certification-year">2024-2025</div>
-                                <div class="certification-content">
-                                    <h3>Oman AI-Enhanced Drones Competition</h3>
-                                </div>
-                            </div>
-                            <div class="certification-item animate-item" style="--i:4;">
-                                <div class="certification-year">2024</div>
-                                <div class="certification-content">
-                                    <h3>Microsoft Office Specialist Certification</h3>
-                                </div>
-                            </div>
-                            <div class="certification-item animate-item" style="--i:5;">
-                                <div class="certification-year">2024</div>
-                                <div class="certification-content">
-                                    <h3>Techstars Startup Weekend, Sultan Qaboos University</h3>
-                                </div>
-                            </div>
-                            <div class="certification-item animate-item" style="--i:6;">
-                                <div class="certification-year">2024</div>
-                                <div class="certification-content">
-                                    <h3>Hackathon Ayn for Electronic Games</h3>
-                                </div>
-                            </div>
-                            <div class="certification-item animate-item" style="--i:7;">
-                                <div class="certification-year">2024</div>
-                                <div class="certification-content">
-                                    <h3>Sustainable Leaders Youth Camp</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <h4>Problem Solving</h4>
+          </div>
+          <div class="personal-skill animate-item" style="--i:2;">
+            <div class="skill-chart" data-percentage="85">
+              <svg class="skill-svg"><circle class="skill-circle-bg" cx="60" cy="60" r="50"></circle><circle class="skill-circle" cx="60" cy="60" r="50"></circle></svg>
+              <div class="skill-percentage">85%</div>
             </div>
+            <h4>Communication</h4>
+          </div>
+          <div class="personal-skill animate-item" style="--i:3;">
+            <div class="skill-chart" data-percentage="80">
+              <svg class="skill-svg"><circle class="skill-circle-bg" cx="60" cy="60" r="50"></circle><circle class="skill-circle" cx="60" cy="60" r="50"></circle></svg>
+              <div class="skill-percentage">80%</div>
+            </div>
+            <h4>Leadership</h4>
+          </div>
+          <div class="personal-skill animate-item" style="--i:4;">
+            <div class="skill-chart" data-percentage="95">
+              <svg class="skill-svg"><circle class="skill-circle-bg" cx="60" cy="60" r="50"></circle><circle class="skill-circle" cx="60" cy="60" r="50"></circle></svg>
+              <div class="skill-percentage">95%</div>
+            </div>
+            <h4>Teamworking</h4>
+          </div>
+          <div class="personal-skill animate-item" style="--i:5;">
+            <div class="skill-chart" data-percentage="95">
+              <svg class="skill-svg"><circle class="skill-circle-bg" cx="60" cy="60" r="50"></circle><circle class="skill-circle" cx="60" cy="60" r="50"></circle></svg>
+              <div class="skill-percentage">100%</div>
+            </div>
+            <h4>Time Management</h4>
+          </div>
+          <div class="personal-skill animate-item" style="--i:6;">
+            <div class="skill-chart" data-percentage="90">
+              <svg class="skill-svg"><circle class="skill-circle-bg" cx="60" cy="60" r="50"></circle><circle class="skill-circle" cx="60" cy="60" r="50"></circle></svg>
+              <div class="skill-percentage">90%</div>
+            </div>
+            <h4>Creativity</h4>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section alt-bg">
-        <div class="section-container">
-            <div class="section-title">
-                <h2>Contact Me</h2>
-                <div class="underline"></div>
-            </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <div class="contact-card animate-item" style="--i:1;">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Location</h3>
-                            <p>Muscat-Seeb, Oman</p>
-                        </div>
-                    </div>
-                    <div class="contact-card animate-item" style="--i:2;">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Email</h3>
-                            <p>mr.yousufalshaaili@gmail.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-card animate-item" style="--i:3;">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Phone</h3>
-                            <p>+968 97856899</p>
-                        </div>
-                    </div>
-                    <div class="contact-card animate-item" style="--i:4;">
-                        <div class="contact-icon">
-                            <i class="fas fa-language"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Languages</h3>
-                            <p>Arabic, English</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-form-container">
-                    <form id="contact-form" class="contact-form" action="sendmail.php" method="post">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Your Name" required="" >
-                            <label for="name">Your Name</label>
-                            <span class="focus-border"></span>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Your Email" required="" >
-                            <label for="email">Your Email</label>
-                            <span class="focus-border"></span>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="subject" name="subject" placeholder="Subject" required="" >
-                            <label for="subject">Subject</label>
-                            <span class="focus-border"></span>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" name="message" placeholder="Your Message" required="" ></textarea>
-                            <label for="message">Your Message</label>
-                            <span class="focus-border"></span>
-                        </div>
-                        <button type="submit" class="btn primary-btn submit-btn">
-                            <span>Send Message</span>
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
+<!-- Projects Section -->
+<section id="projects" class="section alt-bg">
+  <div class="section-container">
+    <div class="section-title"><h2>Projects</h2><div class="underline"></div></div>
+    <div class="projects-container">
+
+      <!-- NEW: Arabic Sign Language FYP -->
+      <div class="project-card animate-item" style="--i:1;">
+        <div class="project-img"><div class="project-img-placeholder"><i class="fas fa-hands"></i></div></div>
+        <div class="project-content">
+          <h3>Arabic Sign Language Recognition (FYP)</h3>
+          <p>Real-time Arabic Sign Language recognition using I3D models for spatio-temporal feature extraction, with a web-based expert validation platform for Omani researchers.</p>
+          <div class="project-tech"><span>PyTorch</span><span>I3D Models</span><span>Computer Vision</span><span>PHP / MySQL</span><span>Arabic NLP</span></div>
+          <div class="project-links">
+            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> View Project</a>
+            <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <span>Y</span>ousuf Alshaaili
-                </div>
-                <div class="footer-social">
-                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/yousufalshaili/" class="social-icon"><i class="fab fa-linkedin"></i></a>
-                    <a href="#contact" class="social-icon"><i class="fas fa-envelope"></i></a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2025 Yousuf Alshaaili. All Rights Reserved.</p>
-            </div>
+      <!-- NEW: Mental Health Chatbot -->
+      <div class="project-card animate-item" style="--i:2;">
+        <div class="project-img"><div class="project-img-placeholder"><i class="fas fa-robot"></i></div></div>
+        <div class="project-content">
+          <h3>Mental Health Support Chatbot</h3>
+          <p>Fine-tuned LLaMA 3 / Mistral using LoRA/QLoRA via Unsloth for empathetic mental health conversations, deployed through a FastAPI backend.</p>
+          <div class="project-tech"><span>LLaMA 3</span><span>LoRA / QLoRA</span><span>Unsloth</span><span>FastAPI</span><span>NLP</span></div>
+          <div class="project-links">
+            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> View Project</a>
+            <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+          </div>
         </div>
-    </footer>
+      </div>
 
-    <!-- Back to Top Button -->
-    <button id="back-to-top" class="back-to-top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
+      <!-- NEW: CRNN License Plate -->
+      <div class="project-card animate-item" style="--i:3;">
+        <div class="project-img"><div class="project-img-placeholder"><i class="fas fa-car"></i></div></div>
+        <div class="project-content">
+          <h3>CRNN Omani License Plate Recognition</h3>
+          <p>Replaced ResNet18 with a Bidirectional LSTM + CTC Loss architecture for improved Omani license plate recognition on Arabic script plates.</p>
+          <div class="project-tech"><span>PyTorch</span><span>CRNN</span><span>Bi-LSTM</span><span>CTC Loss</span><span>OCR</span></div>
+          <div class="project-links">
+            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> View Project</a>
+            <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="main.js"></script>
+      <!-- EXISTING: Silah -->
+      <div class="project-card animate-item" style="--i:4;">
+        <div class="project-img"><div class="project-img-placeholder"><i class="fas fa-users"></i></div></div>
+        <div class="project-content">
+          <h3>Silah - Entrepreneur Support Platform</h3>
+          <p>Developed a web-based platform to facilitate connections between entrepreneurs, investors, and mentors, making business growth more accessible.</p>
+          <div class="project-tech"><span>Web Development</span><span>JavaScript</span><span>PHP</span><span>SQL</span></div>
+          <div class="project-links">
+            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> View Project</a>
+            <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
 
+      <!-- EXISTING: Booking System -->
+      <div class="project-card animate-item" style="--i:5;">
+        <div class="project-img"><div class="project-img-placeholder"><i class="fas fa-calendar-alt"></i></div></div>
+        <div class="project-content">
+          <h3>Booking Database System</h3>
+          <p>Designed and developed a booking management system using SQL, enabling efficient scheduling and resource allocation.</p>
+          <div class="project-tech"><span>Database Design</span><span>SQL</span><span>PHP</span><span>JavaScript</span></div>
+          <div class="project-links">
+            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> View Project</a>
+            <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
 
-</body></html>
+    </div>
+  </div>
+</section>
+
+<!-- Achievements Section -->
+<section id="achievements" class="section">
+  <div class="section-container">
+    <div class="section-title"><h2>Achievements &amp; Certifications</h2><div class="underline"></div></div>
+    <div class="achievements-container">
+      <div class="achievements-tabs">
+        <button class="tab-btn active" data-target="achievements">Achievements</button>
+        <button class="tab-btn" data-target="certifications">Certifications</button>
+      </div>
+      <div class="tab-content">
+
+        <!-- Achievements Pane -->
+        <div class="tab-pane active" id="achievements-pane">
+          <div class="achievement-cards">
+
+            <!-- NEW: TechOlympics -->
+            <div class="achievement-card animate-item" style="--i:1;">
+              <div class="achievement-icon"><i class="fas fa-medal"></i></div>
+              <div class="achievement-details">
+                <h3>TechOlympics 2025 — Tehran, Iran</h3>
+                <p>3rd place among international teams · 22nd overall. Represented Oman in the AI Final Stage.</p>
+                <span class="achievement-date">2025 · International</span>
+              </div>
+            </div>
+
+            <!-- EXISTING: Oman Drone -->
+            <div class="achievement-card animate-item" style="--i:2;">
+              <div class="achievement-icon"><i class="fas fa-trophy"></i></div>
+              <div class="achievement-details">
+                <h3>Oman Competition for AI-Enhanced Drones</h3>
+                <p>First place in AI stage — national competition combining AI with UAV technology.</p>
+                <span class="achievement-date">2024 – 2025 · National</span>
+              </div>
+            </div>
+
+            <!-- NEW: Codern -->
+            <div class="achievement-card animate-item" style="--i:3;">
+              <div class="achievement-icon"><i class="fas fa-globe"></i></div>
+              <div class="achievement-details">
+                <h3>Codern International Contest 2025</h3>
+                <p>17th / 200+ teams (Data/AI track) · 50th / 700+ teams (Algorithm track). With Osama Al-Rawahi.</p>
+                <span class="achievement-date">2025 · International</span>
+              </div>
+            </div>
+
+            <!-- EXISTING: GCC Youth Summit -->
+            <div class="achievement-card animate-item" style="--i:4;">
+              <div class="achievement-icon"><i class="fas fa-award"></i></div>
+              <div class="achievement-details">
+                <h3>GCC Youth Summit</h3>
+                <p>Participation in Qatar Debate</p>
+                <span class="achievement-date">2025</span>
+              </div>
+            </div>
+
+            <!-- EXISTING: MS Office Championship -->
+            <div class="achievement-card animate-item" style="--i:5;">
+              <div class="achievement-icon"><i class="fas fa-medal"></i></div>
+              <div class="achievement-details">
+                <h3>Oman Microsoft Office Specialist Championship</h3>
+                <p>Code Academy</p>
+                <span class="achievement-date">2024 – 2025</span>
+              </div>
+            </div>
+
+            <!-- EXISTING: Stars of Science -->
+            <div class="achievement-card animate-item" style="--i:6;">
+              <div class="achievement-icon"><i class="fas fa-star"></i></div>
+              <div class="achievement-details">
+                <h3>Stars of Science</h3>
+                <p>Participated in an innovation-focused reality program by Qatar Foundation.</p>
+                <span class="achievement-date">2023 – 2024</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Certifications Pane -->
+        <div class="tab-pane" id="certifications-pane">
+          <div class="certifications-list">
+            <!-- NEW certs first -->
+            <div class="certification-item animate-item" style="--i:1;">
+              <div class="certification-year">2026</div>
+              <div class="certification-content"><h3>Deep Learning with PyTorch: Image Segmentation</h3><p>Coursera</p></div>
+            </div>
+            <div class="certification-item animate-item" style="--i:2;">
+              <div class="certification-year">2026</div>
+              <div class="certification-content"><h3>Cisco Certified Support Technician (CCST) Cybersecurity</h3><p>Cisco · Expires Jan 2031</p></div>
+            </div>
+            <div class="certification-item animate-item" style="--i:3;">
+              <div class="certification-year">2025</div>
+              <div class="certification-content"><h3>Fundamentals of Deep Learning</h3><p>NVIDIA</p></div>
+            </div>
+            <div class="certification-item animate-item" style="--i:4;">
+              <div class="certification-year">2025</div>
+              <div class="certification-content"><h3>Supervised Machine Learning: Regression &amp; Classification</h3><p>Coursera</p></div>
+            </div>
+            <div class="certification-item animate-item" style="--i:5;">
+              <div class="certification-year">2025</div>
+              <div class="certification-content"><h3>Getting Started with Data Analytics on AWS</h3><p>edX</p></div>
+            </div>
+            <!-- EXISTING certs -->
+            <div class="certification-item animate-item" style="--i:6;">
+              <div class="certification-year">2025</div>
+              <div class="certification-content"><h3>Oman Collegiate Programming Contest</h3></div>
+            </div>
+            <div class="certification-item animate-item" style="--i:7;">
+              <div class="certification-year">2025</div>
+              <div class="certification-content"><h3>Tahadi Mustadam Hackathon</h3></div>
+            </div>
+            <div class="certification-item animate-item" style="--i:8;">
+              <div class="certification-year">2025</div>
+              <div class="certification-content"><h3>Microsoft Office Specialist Certification</h3><p>Microsoft</p></div>
+            </div>
+            <div class="certification-item animate-item" style="--i:9;">
+              <div class="certification-year">2024</div>
+              <div class="certification-content"><h3>Oman AI-Enhanced Drones Competition</h3></div>
+            </div>
+            <div class="certification-item animate-item" style="--i:10;">
+              <div class="certification-year">2024</div>
+              <div class="certification-content"><h3>Techstars Startup Weekend, Sultan Qaboos University</h3></div>
+            </div>
+            <div class="certification-item animate-item" style="--i:11;">
+              <div class="certification-year">2024</div>
+              <div class="certification-content"><h3>Hackathon Ayn for Electronic Games</h3></div>
+            </div>
+            <div class="certification-item animate-item" style="--i:12;">
+              <div class="certification-year">2024</div>
+              <div class="certification-content"><h3>Sustainable Leaders Youth Camp</h3></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="section alt-bg">
+  <div class="section-container">
+    <div class="section-title"><h2>Contact Me</h2><div class="underline"></div></div>
+    <div class="contact-container">
+      <div class="contact-info">
+        <div class="contact-card animate-item" style="--i:1;">
+          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="contact-details"><h3>Location</h3><p>Muscat-Seeb, Oman</p></div>
+        </div>
+        <div class="contact-card animate-item" style="--i:2;">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <div class="contact-details"><h3>Email</h3><p>alshaili37@gmail.com</p></div>
+        </div>
+        <div class="contact-card animate-item" style="--i:3;">
+          <div class="contact-icon"><i class="fas fa-phone"></i></div>
+          <div class="contact-details"><h3>Phone</h3><p>+968 97856899</p></div>
+        </div>
+        <div class="contact-card animate-item" style="--i:4;">
+          <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
+          <div class="contact-details"><h3>LinkedIn</h3><p>linkedin.com/in/yousufalshaili</p></div>
+        </div>
+        <div class="contact-card animate-item" style="--i:5;">
+          <div class="contact-icon"><i class="fas fa-language"></i></div>
+          <div class="contact-details"><h3>Languages</h3><p>Arabic, English</p></div>
+        </div>
+      </div>
+      <div class="contact-form-container">
+        <form id="contact-form" class="contact-form" action="sendmail.php" method="post">
+          <div class="form-group">
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+          </div>
+          <div class="form-group">
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+          </div>
+          <div class="form-group">
+            <input type="text" id="subject" name="subject" placeholder="Subject" required>
+          </div>
+          <div class="form-group">
+            <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+          </div>
+          <button type="submit" class="btn primary-btn submit-btn">
+            <span>Send Message</span><i class="fas fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-logo"><span>Y</span>ousuf Alshaaili</div>
+      <div class="footer-social">
+        <a href="https://github.com/y97856899" class="social-icon" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/yousufalshaili/" class="social-icon" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="#contact" class="social-icon"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 Yousuf Alshaaili. All Rights Reserved.</p></div>
+  </div>
+</footer>
+
+<!-- Back to Top -->
+<button id="back-to-top" class="back-to-top"><i class="fas fa-arrow-up"></i></button>
+
+<!-- Particles.js -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+<script>
+// ── Preloader ──
+window.addEventListener('load', () => {
+  const pre = document.getElementById('preloader');
+  pre.style.opacity = '0';
+  setTimeout(() => pre.style.display = 'none', 500);
+});
+
+// ── Particles ──
+if (typeof particlesJS !== 'undefined') {
+  particlesJS('particles-js', {
+    particles: { number: { value: 60, density: { enable: true, value_area: 900 } },
+      color: { value: '#c8973a' }, shape: { type: 'circle' },
+      opacity: { value: 0.25, random: true },
+      size: { value: 3, random: true },
+      line_linked: { enable: true, distance: 140, color: '#c8973a', opacity: 0.12, width: 1 },
+      move: { enable: true, speed: 1.2, direction: 'none', random: true, out_mode: 'out' }
+    },
+    interactivity: { detect_on: 'canvas', events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: true, mode: 'push' } } },
+    retina_detect: true
+  });
+}
+
+// ── Typed ──
+const roles = ['AI & Deep Learning Engineer', 'Cybersecurity Practitioner', 'Drone AI Trainer', 'CS Student at SQU', 'Arabic NLP Researcher'];
+let ri = 0, ci = 0, del = false;
+const tel = document.getElementById('typing');
+function type() {
+  const w = roles[ri];
+  if (!del) { tel.textContent = w.slice(0, ++ci); if (ci === w.length) { del = true; setTimeout(type, 1800); return; } }
+  else { tel.textContent = w.slice(0, --ci); if (ci === 0) { del = false; ri = (ri + 1) % roles.length; } }
+  setTimeout(type, del ? 40 : 80);
+}
+type();
+
+// ── Navbar scroll ──
+window.addEventListener('scroll', () => {
+  const nb = document.getElementById('navbar');
+  nb.classList.toggle('scrolled', window.scrollY > 50);
+  const btt = document.getElementById('back-to-top');
+  btt.classList.toggle('visible', window.scrollY > 400);
+  // active nav
+  const y = window.scrollY + 80;
+  document.querySelectorAll('section[id]').forEach(s => {
+    const a = document.querySelector(`.nav-link[href="#${s.id}"]`);
+    if (!a) return;
+    if (y >= s.offsetTop && y < s.offsetTop + s.offsetHeight) a.classList.add('active');
+    else a.classList.remove('active');
+  });
+});
+
+// ── Back to top ──
+document.getElementById('back-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+// ── Mobile menu ──
+function toggleMenu() {
+  document.getElementById('nav-menu').classList.toggle('open');
+}
+
+// ── Scroll reveal + skill bars + svg circles ──
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    el.classList.add('visible');
+    // skill progress bars
+    el.querySelectorAll('.skill-progress').forEach(b => {
+      b.style.width = b.dataset.progress + '%';
+    });
+    // svg circles
+    el.querySelectorAll('.skill-chart').forEach(chart => {
+      const pct = parseInt(chart.dataset.percentage);
+      const circle = chart.querySelector('.skill-circle');
+      const r = 50, circumference = 2 * Math.PI * r;
+      circle.style.strokeDasharray = circumference;
+      circle.style.strokeDashoffset = circumference - (pct / 100) * circumference;
+    });
+    obs.unobserve(el);
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.animate-item, .skills-category').forEach(el => obs.observe(el));
+
+// also trigger skill bars on section enter
+const secObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.querySelectorAll('.skill-progress').forEach(b => b.style.width = b.dataset.progress + '%');
+    e.target.querySelectorAll('.skill-chart').forEach(chart => {
+      const pct = parseInt(chart.dataset.percentage);
+      const circle = chart.querySelector('.skill-circle');
+      const r = 50, c = 2 * Math.PI * r;
+      circle.style.strokeDasharray = c;
+      circle.style.strokeDashoffset = c - (pct / 100) * c;
+    });
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('#skills').forEach(s => secObs.observe(s));
+
+// ── Tabs ──
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.target + '-pane').classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>

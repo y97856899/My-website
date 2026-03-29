@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yousuf Alshaaili</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary:      #2c3e6b;
+  --primary-dark: #1a2540;
+  --accent:       #3a7bd5;
+  --accent-light: #5a9ff0;
+  --bg:           #faf7f2;
+  --bg-alt:       #f0ebe0;
+  --bg-card:      #ffffff;
+  --text:         #2c2c3e;
+  --text-mid:     #5a5a72;
+  --text-light:   #8a8a9a;
+  --border:       #e2d9c5;
+  --shadow:       0 5px 20px rgba(0,0,0,0.08);
+  --shadow-h:     0 10px 30px rgba(0,0,0,0.13);
+  --radius:       12px;
+  --tr:           all 0.3s ease;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;font-size:16px;line-height:1.7;overflow-x:hidden;}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--bg-alt);}
+::-webkit-scrollbar-thumb{background:var(--primary);border-radius:3px;}
+
+/* PRELOADER */
+.preloader{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.5s ease;}
+.loader{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(26,37,64,0.97);backdrop-filter:blur(12px);transition:var(--tr);}
+.navbar.scrolled{box-shadow:0 2px 20px rgba(0,0,0,0.25);}
+.navbar-container{display:flex;align-items:center;justify-content:space-between;padding:0 6%;height:70px;max-width:1300px;margin:0 auto;}
+.logo{font-family:'Montserrat',sans-serif;font-size:1.5rem;font-weight:700;color:#fff;letter-spacing:-0.02em;cursor:pointer;}
+.logo span{color:var(--accent);}
+.nav-menu{display:flex;list-style:none;gap:4px;}
+.nav-link{font-size:0.82rem;font-weight:500;color:rgba(255,255,255,0.7);text-decoration:none;padding:7px 14px;border-radius:8px;transition:var(--tr);}
+.nav-link:hover,.nav-link.active{color:#fff;background:rgba(58,123,213,0.3);}
+.menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+.bar{width:24px;height:2px;background:#fff;border-radius:2px;transition:var(--tr);}
+
+/* HOME */
+.home-section{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#1a2540 0%,#2c3e6b 60%,#1e3a5f 100%);padding:100px 6% 60px;}
+.particles-container{position:absolute;inset:0;z-index:0;}
+.home-content{position:relative;z-index:1;text-align:center;max-width:900px;margin:0 auto;}
+.text-content{margin-bottom:32px;}
+.glitch{font-family:'Montserrat',sans-serif;font-size:clamp(2.2rem,6vw,4.5rem);font-weight:700;color:#fff;letter-spacing:-0.02em;margin-bottom:16px;line-height:1.1;}
+.typing-container{font-size:1.2rem;color:rgba(255,255,255,0.75);margin-bottom:10px;min-height:2em;}
+.static-text{color:rgba(255,255,255,0.75);}
+.typing{color:var(--accent-light);font-weight:600;}
+.cursor{display:inline-block;width:2px;height:1em;background:var(--accent-light);margin-left:2px;vertical-align:middle;animation:blink 1s step-start infinite;}
+@keyframes blink{50%{opacity:0;}}
+.subtitle{font-size:1rem;color:rgba(255,255,255,0.55);margin-bottom:32px;letter-spacing:0.04em;}
+.cta-buttons{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:36px;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:10px;font-family:'Poppins',sans-serif;font-size:0.9rem;font-weight:600;text-decoration:none;cursor:pointer;border:none;transition:var(--tr);}
+.primary-btn{background:var(--accent);color:#fff;box-shadow:0 4px 18px rgba(58,123,213,0.4);}
+.primary-btn:hover{background:var(--accent-light);transform:translateY(-2px);box-shadow:0 8px 28px rgba(58,123,213,0.5);}
+.secondary-btn{background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.4);}
+.secondary-btn:hover{background:rgba(255,255,255,0.1);border-color:#fff;transform:translateY(-2px);}
+.social-icons{display:flex;justify-content:center;gap:14px;}
+.social-icon{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.75);font-size:1.05rem;text-decoration:none;transition:var(--tr);border:1px solid rgba(255,255,255,0.15);}
+.social-icon:hover{background:var(--accent);color:#fff;border-color:var(--accent);transform:translateY(-3px);}
+.scroll-indicator{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;}
+.mouse{width:24px;height:38px;border:2px solid rgba(255,255,255,0.3);border-radius:12px;display:flex;justify-content:center;padding-top:5px;}
+.wheel{width:3px;height:8px;background:rgba(255,255,255,0.5);border-radius:2px;animation:scrollw 1.5s ease infinite;}
+@keyframes scrollw{0%{transform:translateY(0);opacity:1;}100%{transform:translateY(10px);opacity:0;}}
+.arrow{display:flex;flex-direction:column;align-items:center;gap:2px;}
+.arrow span{display:block;width:8px;height:8px;border-right:2px solid rgba(255,255,255,0.3);border-bottom:2px solid rgba(255,255,255,0.3);transform:rotate(45deg);animation:arrowb 1.5s ease infinite;}
+.arrow span:nth-child(2){animation-delay:0.15s;}
+.arrow span:nth-child(3){animation-delay:0.3s;}
+@keyframes arrowb{0%,100%{opacity:0.3;}50%{opacity:1;}}
+
+/* SECTIONS */
+.section{padding:90px 6%;}
+.section-container{max-width:1200px;margin:0 auto;}
+.section-title{text-align:center;margin-bottom:56px;}
+.section-title h2{font-family:'Montserrat',sans-serif;font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:700;color:var(--primary);margin-bottom:12px;}
+.underline{width:56px;height:4px;background:linear-gradient(90deg,var(--accent),var(--accent-light));border-radius:2px;margin:0 auto;}
+.alt-bg{background:var(--bg-alt);}
+
+/* ABOUT */
+.about-content{display:grid;grid-template-columns:300px 1fr;gap:60px;align-items:start;}
+.about-image{position:relative;}
+.image-container{width:270px;height:270px;border-radius:20px;overflow:hidden;background:var(--bg-card);border:3px solid var(--border);display:flex;align-items:center;justify-content:center;position:relative;z-index:1;}
+.image-placeholder{font-size:6rem;color:var(--accent);opacity:0.6;}
+.image-border{position:absolute;top:14px;left:14px;width:270px;height:270px;border:3px solid var(--accent);border-radius:20px;opacity:0.35;}
+.about-text p{color:var(--text-mid);margin-bottom:18px;font-size:0.96rem;line-height:1.8;}
+.personal-info{background:var(--bg-alt);border-radius:var(--radius);padding:22px;margin-bottom:28px;border:1px solid var(--border);}
+.info-item{display:flex;align-items:flex-start;gap:12px;padding:9px 0;border-bottom:1px solid var(--border);}
+.info-item:last-child{border-bottom:none;}
+.info-title{font-weight:600;font-size:0.85rem;color:var(--primary);min-width:110px;display:flex;align-items:center;gap:7px;flex-shrink:0;}
+.info-title i{color:var(--accent);}
+.info-value{font-size:0.88rem;color:var(--text-mid);}
+
+/* EXPERIENCE TWO-COLUMN */
+.exp-edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;}
+.col-header{font-family:'Montserrat',sans-serif;font-size:1.05rem;font-weight:700;color:var(--primary);margin-bottom:26px;display:flex;align-items:center;gap:10px;padding-bottom:12px;border-bottom:2px solid var(--border);}
+.col-header i{color:var(--accent);}
+.timeline{position:relative;padding-left:36px;}
+.timeline::before{content:'';position:absolute;left:14px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,var(--accent),var(--border));}
+.timeline-item{position:relative;margin-bottom:28px;}
+.timeline-icon{position:absolute;left:-43px;top:2px;width:34px;height:34px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.82rem;z-index:1;}
+.timeline-content{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow);transition:var(--tr);}
+.timeline-content:hover{box-shadow:var(--shadow-h);transform:translateY(-2px);}
+.timeline-content h3{font-family:'Montserrat',sans-serif;font-size:1rem;font-weight:700;color:var(--primary);margin-bottom:3px;}
+.timeline-content h4{font-size:0.85rem;font-weight:500;color:var(--accent);margin-bottom:6px;}
+.timeline-date{font-size:0.73rem;font-weight:600;color:var(--text-light);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:10px;display:inline-block;background:var(--bg-alt);padding:3px 10px;border-radius:20px;}
+.timeline-details{padding-left:14px;margin-top:8px;}
+.timeline-details li{font-size:0.84rem;color:var(--text-mid);margin-bottom:4px;line-height:1.6;}
+.tl-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.tl-tag{background:var(--bg-alt);border:1px solid var(--border);border-radius:20px;padding:3px 10px;font-size:0.7rem;font-weight:500;color:var(--text-mid);}
+
+/* SKILLS */
+.skills-container{display:grid;grid-template-columns:1fr 1fr;gap:50px;}
+.skills-category h3{font-family:'Montserrat',sans-serif;font-size:1.05rem;font-weight:700;color:var(--primary);margin-bottom:22px;padding-bottom:10px;border-bottom:2px solid var(--border);}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.skill-item{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 12px;text-align:center;transition:var(--tr);}
+.skill-item:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:var(--shadow);}
+.skill-icon{font-size:1.7rem;color:var(--accent);margin-bottom:8px;}
+.skill-item h4{font-size:0.8rem;font-weight:600;color:var(--text);}
+.personal-skills{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.personal-skill{text-align:center;}
+.skill-chart{position:relative;width:110px;height:110px;margin:0 auto 10px;}
+.skill-svg{width:110px;height:110px;transform:rotate(-90deg);}
+.skill-circle-bg{fill:none;stroke:var(--bg-alt);stroke-width:9;}
+.skill-circle{fill:none;stroke:url(#skillGrad);stroke-width:9;stroke-linecap:round;stroke-dasharray:289;stroke-dashoffset:289;transition:stroke-dashoffset 1.4s cubic-bezier(.16,1,.3,1);}
+.skill-icon-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:1.3rem;color:var(--accent);}
+.personal-skill h4{font-size:0.82rem;font-weight:600;color:var(--text-mid);}
+
+/* IN PROGRESS BADGE */
+.badge-inprogress{display:inline-flex;align-items:center;gap:6px;background:rgba(58,123,213,0.1);color:var(--accent);border:1px solid rgba(58,123,213,0.35);border-radius:20px;padding:3px 11px;font-size:0.7rem;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:8px;}
+.badge-inprogress::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 1.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(1.5);}}
+
+/* PROJECTS */
+.projects-container{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
+.project-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:var(--tr);box-shadow:var(--shadow);}
+.project-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-h);border-color:rgba(58,123,213,0.35);}
+.project-img{height:130px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));display:flex;align-items:center;justify-content:center;}
+.project-img-placeholder{font-size:2.8rem;color:rgba(255,255,255,0.28);}
+.project-content{padding:20px 22px;}
+.project-content h3{font-family:'Montserrat',sans-serif;font-size:0.97rem;font-weight:700;color:var(--primary);margin-bottom:8px;}
+.project-content p{font-size:0.84rem;color:var(--text-mid);margin-bottom:14px;line-height:1.65;}
+.project-tech{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+.project-tech span{background:var(--bg-alt);border:1px solid var(--border);border-radius:20px;padding:3px 10px;font-size:0.7rem;font-weight:500;color:var(--text-mid);}
+.project-links{display:flex;gap:10px;}
+.project-link{display:inline-flex;align-items:center;gap:5px;font-size:0.78rem;font-weight:600;color:var(--primary);text-decoration:none;border:1px solid var(--border);padding:6px 13px;border-radius:7px;transition:var(--tr);}
+.project-link:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
+
+/* ACHIEVEMENTS */
+.achievements-tabs{display:flex;gap:4px;justify-content:center;margin-bottom:36px;}
+.tab-btn{padding:10px 28px;border-radius:8px;font-family:'Poppins',sans-serif;font-size:0.88rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--bg-card);color:var(--text-mid);transition:var(--tr);}
+.tab-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+.achievement-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.achievement-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;display:flex;gap:14px;align-items:flex-start;transition:var(--tr);}
+.achievement-card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:rgba(58,123,213,0.35);}
+.achievement-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--primary),var(--accent));border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.05rem;flex-shrink:0;}
+.achievement-details h3{font-size:0.88rem;font-weight:700;color:var(--primary);margin-bottom:4px;line-height:1.3;}
+.achievement-details p{font-size:0.8rem;color:var(--text-mid);margin-bottom:6px;}
+.achievement-date{font-size:0.7rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.06em;}
+.certifications-list{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;}
+.certification-item{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:15px 17px;display:flex;gap:13px;align-items:flex-start;transition:var(--tr);}
+.certification-item:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow);}
+.certification-year{font-family:'Montserrat',sans-serif;font-size:0.7rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.08em;min-width:42px;padding-top:2px;}
+.certification-content h3{font-size:0.84rem;font-weight:600;color:var(--primary);line-height:1.3;}
+.certification-content p{font-size:0.75rem;color:var(--text-mid);margin-top:3px;}
+
+/* CONTACT */
+.contact-container{display:grid;grid-template-columns:1fr 1.4fr;gap:50px;align-items:start;}
+.contact-info{display:flex;flex-direction:column;gap:13px;}
+.contact-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;display:flex;gap:14px;align-items:center;transition:var(--tr);box-shadow:var(--shadow);text-decoration:none;color:inherit;}
+.contact-card:hover{border-color:var(--accent);transform:translateX(4px);}
+.contact-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--primary),var(--accent));border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;flex-shrink:0;}
+.contact-details h3{font-size:0.8rem;font-weight:700;color:var(--primary);margin-bottom:2px;}
+.contact-details p{font-size:0.84rem;color:var(--text-mid);}
+.contact-form-container{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:30px;box-shadow:var(--shadow);}
+.contact-form{display:flex;flex-direction:column;gap:16px;}
+.form-group input,.form-group textarea{width:100%;padding:13px 16px;border:1px solid var(--border);border-radius:9px;background:var(--bg-alt);font-family:'Poppins',sans-serif;font-size:0.9rem;color:var(--text);outline:none;transition:var(--tr);resize:none;}
+.form-group textarea{height:120px;}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--accent);background:#fff;}
+.submit-btn{display:flex;align-items:center;justify-content:center;gap:8px;}
+
+/* FOOTER */
+.footer{background:var(--primary-dark);color:rgba(255,255,255,0.55);padding:30px 6%;}
+.footer-container{max-width:1200px;margin:0 auto;}
+.footer-content{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:14px;}
+.footer-logo{font-family:'Montserrat',sans-serif;font-size:1.3rem;font-weight:700;color:#fff;}
+.footer-logo span{color:var(--accent);}
+.footer-social{display:flex;gap:10px;}
+.footer-bottom{text-align:center;font-size:0.82rem;border-top:1px solid rgba(255,255,255,0.08);padding-top:16px;}
+
+/* BACK TO TOP */
+.back-to-top{position:fixed;bottom:28px;right:28px;width:44px;height:44px;background:var(--accent);color:#fff;border:none;border-radius:50%;cursor:pointer;display:none;align-items:center;justify-content:center;font-size:1rem;box-shadow:0 4px 16px rgba(58,123,213,0.45);transition:var(--tr);z-index:999;}
+.back-to-top.visible{display:flex;}
+.back-to-top:hover{transform:translateY(-3px);background:var(--accent-light);}
+
+/* ANIMATIONS */
+.animate-in{animation:fadeIn 0.8s ease both;}
+.animate-item{opacity:0;transform:translateY(20px);transition:opacity 0.5s ease,transform 0.5s ease;}
+.animate-item.visible{opacity:1;transform:translateY(0);}
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .section{padding:70px 4%;}
+  .about-content{grid-template-columns:1fr;}
+  .exp-edu-grid{grid-template-columns:1fr;}
+  .skills-container{grid-template-columns:1fr;}
+  .projects-container{grid-template-columns:1fr;}
+  .achievement-cards{grid-template-columns:1fr 1fr;}
+  .certifications-list{grid-template-columns:1fr 1fr;}
+  .contact-container{grid-template-columns:1fr;}
+}
+@media(max-width:600px){
+  .nav-menu{display:none;flex-direction:column;position:absolute;top:70px;left:0;right:0;background:rgba(26,37,64,0.98);padding:16px;gap:4px;}
+  .nav-menu.open{display:flex;}
+  .menu-toggle{display:flex;}
+  .glitch{font-size:2rem;}
+  .skills-grid{grid-template-columns:repeat(2,1fr);}
+  .personal-skills{grid-template-columns:repeat(2,1fr);}
+  .achievement-cards,.certifications-list{grid-template-columns:1fr;}
+  .footer-content{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<div class="preloader" id="preloader"><div class="loader"></div></div>
+
+<!-- NAV -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-container">
+    <div class="logo"><span>Y</span>ousuf</div>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="#home"         class="nav-link active">Home</a></li>
+      <li><a href="#about"        class="nav-link">About</a></li>
+      <li><a href="#experience"   class="nav-link">Experience</a></li>
+      <li><a href="#skills"       class="nav-link">Skills</a></li>
+      <li><a href="#projects"     class="nav-link">Projects</a></li>
+      <li><a href="#achievements" class="nav-link">Achievements</a></li>
+      <li><a href="#contact"      class="nav-link">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="home-section animate-in">
+  <div class="particles-container" id="particles-js"></div>
+  <div class="home-content">
+    <div class="text-content">
+      <h1 class="glitch">Yousuf Alshaaili</h1>
+      <div class="typing-container">
+        <span class="static-text">I'm a </span><span class="typing" id="typing"></span><span class="cursor"></span>
+      </div>
+      <p class="subtitle">Specializing in Intelligent Systems &amp; Data Science</p>
+      <div class="cta-buttons">
+        <a href="#contact" class="btn primary-btn">Contact Me</a>
+        <a href="#projects" class="btn secondary-btn">View Projects</a>
+      </div>
+    </div>
+    <div class="social-icons">
+      <a href="https://github.com/y97856899" class="social-icon" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/yousufalshaili/" class="social-icon" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://wa.me/96897856899" class="social-icon" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a href="mailto:mr.yousufalshaaili@gmail.com" class="social-icon"><i class="fas fa-envelope"></i></a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="mouse"><div class="wheel"></div></div>
+    <div class="arrow"><span></span><span></span><span></span></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <div class="section-container">
+    <div class="section-title"><h2>About Me</h2><div class="underline"></div></div>
+    <div class="about-content">
+      <div class="about-image">
+        <div class="image-container"><div class="image-placeholder"><i class="fas fa-user"></i></div></div>
+        <div class="image-border"></div>
+      </div>
+      <div class="about-text">
+        <p>As a final-year student specializing in Intelligent Systems and Data Science, I am passionate about solving real-world problems through innovation and technology. I aim to contribute to cutting-edge advancements in the tech industry by leveraging my strong programming and analytical skills.</p>
+        <p>I have competed internationally — earning 3rd place at TechOlympics 2025 in Tehran — and serve as a Drone AI Trainer for the national Ministry of Transport competition, helping shape the next generation of Omani tech leaders.</p>
+        <div class="personal-info">
+          <div class="info-item">
+            <span class="info-title"><i class="fas fa-map-marker-alt"></i> Location:</span>
+            <span class="info-value">Muscat-Seeb, Oman 🇴🇲</span>
+          </div>
+          <div class="info-item">
+            <span class="info-title"><i class="fas fa-phone"></i> Phone:</span>
+            <span class="info-value">+968 97856899</span>
+          </div>
+          <div class="info-item">
+            <span class="info-title"><i class="fas fa-envelope"></i> Email:</span>
+            <span class="info-value">mr.yousufalshaaili@gmail.com</span>
+          </div>
+          <div class="info-item">
+            <span class="info-title"><i class="fas fa-graduation-cap"></i> Education:</span>
+            <span class="info-value">Computer Science, Sultan Qaboos University</span>
+          </div>
+          <div class="info-item">
+            <span class="info-title"><i class="fab fa-linkedin"></i> LinkedIn:</span>
+            <span class="info-value">linkedin.com/in/yousufalshaili</span>
+          </div>
+        </div>
+        <a href="#contact" class="btn primary-btn">Get In Touch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE & EDUCATION -->
+<section id="experience" class="section alt-bg">
+  <div class="section-container">
+    <div class="section-title"><h2>Experience &amp; Education</h2><div class="underline"></div></div>
+    <div class="exp-edu-grid">
+
+      <!-- Work Experience -->
+      <div>
+        <div class="col-header"><i class="fas fa-briefcase"></i> Work Experience</div>
+        <div class="timeline">
+          <div class="timeline-item animate-item">
+            <div class="timeline-icon"><i class="fas fa-helicopter"></i></div>
+            <div class="timeline-content">
+              <h3>AI Drone Trainer</h3>
+              <h4>Ministry of Transport, Communications &amp; IT — Oman</h4>
+              <p class="timeline-date">Jun 2025 – Mar 2026 · Part-time</p>
+              <ul class="timeline-details">
+                <li>Delivered training for the 3rd Edition of the national Oman Competition for AI-Enhanced Drones.</li>
+                <li>Mentored participants in AI concepts applied to UAV technology under Dr. Said Al-Abri.</li>
+                <li>Helped shape a generation capable of leading digital transformation in Oman.</li>
+              </ul>
+              <div class="tl-tags"><span class="tl-tag">Drone AI</span><span class="tl-tag">Training</span><span class="tl-tag">AI</span></div>
+            </div>
+          </div>
+          <div class="timeline-item animate-item">
+            <div class="timeline-icon"><i class="fas fa-network-wired"></i></div>
+            <div class="timeline-content">
+              <h3>Information Technology Service Desk</h3>
+              <h4>Oman Broadband</h4>
+              <p class="timeline-date">Jun 2025 – Aug 2025 · Internship</p>
+              <ul class="timeline-details">
+                <li>Provided first and second-line IT support in a national broadband infrastructure environment.</li>
+                <li>Enhanced technical knowledge in network operations and enterprise ICT systems.</li>
+                <li>Collaborated with Qasim AL-Busaidi's team on Oman's digital connectivity expansion.</li>
+              </ul>
+              <div class="tl-tags"><span class="tl-tag">IT Operations</span><span class="tl-tag">Networking</span><span class="tl-tag">ICT</span></div>
+            </div>
+          </div>
+          <div class="timeline-item animate-item">
+            <div class="timeline-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+            <div class="timeline-content">
+              <h3>Teaching Assistant</h3>
+              <h4>Sultan Qaboos University</h4>
+              <p class="timeline-date">Sep 2024 – Jan 2025</p>
+              <ul class="timeline-details">
+                <li>Assisted in delivering course content by supporting lectures and lab sessions.</li>
+                <li>Graded assignments and lab work, providing timely and constructive feedback.</li>
+                <li>Provided one-on-one or group academic support to students on complex CS topics.</li>
+              </ul>
+              <div class="tl-tags"><span class="tl-tag">Teaching</span><span class="tl-tag">CS Education</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div>
+        <div class="col-header"><i class="fas fa-graduation-cap"></i> Education</div>
+        <div class="timeline">
+          <div class="timeline-item animate-item">
+            <div class="timeline-icon"><i class="fas fa-university"></i></div>
+            <div class="timeline-content">
+              <h3>Computer Science</h3>
+              <h4>Sultan Qaboos University, College of Science</h4>
+              <p class="timeline-date">2021 – Present</p>
+              <p style="font-size:0.85rem;color:var(--text-mid);"><strong>Major:</strong> Computer Science</p>
+              <p style="font-size:0.85rem;color:var(--text-mid);"><strong>Specialization:</strong> Intelligent Systems and Data Science</p>
+              <p style="font-size:0.83rem;color:var(--text-mid);margin-top:8px;">Key courses: Machine Learning · Computer Security · Pattern Recognition · Arabic NLP · Compiler Design · Computer Vision</p>
+              <div class="tl-tags"><span class="tl-tag">AI / ML</span><span class="tl-tag">Cybersecurity</span><span class="tl-tag">Data Science</span></div>
+            </div>
+          </div>
+          <div class="timeline-item animate-item">
+            <div class="timeline-icon"><i class="fas fa-rocket"></i></div>
+            <div class="timeline-content">
+              <h3>PwC Elevate Program</h3>
+              <h4>PwC Middle East</h4>
+              <p class="timeline-date">Mar 2024</p>
+              <p style="font-size:0.85rem;color:var(--text-mid);">Leadership and professional development program for high-potential university students across the Middle East.</p>
+              <div class="tl-tags"><span class="tl-tag">Leadership</span><span class="tl-tag">Networking</span></div>
+            </div>
+          </div>
+          <div class="timeline-item animate-item">
+            <div class="timeline-icon"><i class="fas fa-lightbulb"></i></div>
+            <div class="timeline-content">
+              <h3>Startup Weekend</h3>
+              <h4>Sultan Qaboos University · Techstars</h4>
+              <p class="timeline-date">Nov 2024</p>
+              <p style="font-size:0.85rem;color:var(--text-mid);">Intensive 54-hour entrepreneurship event — pitched, prototyped, and validated a business idea with a team.</p>
+              <div class="tl-tags"><span class="tl-tag">Entrepreneurship</span><span class="tl-tag">Teamwork</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="section">
+  <div class="section-container">
+    <div class="section-title"><h2>Skills &amp; Abilities</h2><div class="underline"></div></div>
+    <div class="skills-container">
+
+      <div class="skills-category">
+        <h3>Technical Skills</h3>
+        <div class="skills-grid">
+          <div class="skill-item animate-item"><div class="skill-icon"><i class="fab fa-python"></i></div><h4>Python</h4></div>
+          <div class="skill-item animate-item"><div class="skill-icon"><i class="fas fa-fire"></i></div><h4>PyTorch</h4></div>
+          <div class="skill-item animate-item"><div class="skill-icon"><i class="fas fa-brain"></i></div><h4>Deep Learning</h4></div>
+          <div class="skill-item animate-item"><div class="skill-icon"><i class="fab fa-java"></i></div><h4>Java</h4></div>
+          <div class="skill-item animate-item"><div class="skill-icon"><i class="fas fa-code"></i></div><h4>Web Dev</h4></div>
+          <div class="skill-item animate-item"><div class="skill-icon"><i class="fas fa-database"></i></div><h4>SQL</h4></div>
+          <div class="skill-item animate-item"><div class="skill-icon"><i class="fas fa-eye"></i></div><h4>Computer Vision</h4></div>
+          <div class="skill-item animate-item"><div class="skill-icon"><i class="fab fa-linux"></i></div><h4>Linux / Kali</h4></div>
+          <div class="skill-item animate-item"><div class="skill-icon"><i class="fas fa-language"></i></div><h4>Arabic NLP</h4></div>
+          <div class="skill-item animate-item"><div class="skill-icon"><i class="fas fa-helicopter"></i></div><h4>Drone AI</h4></div>
+          <div class="skill-item animate-item"><div class="skill-icon"><i class="fas fa-calculator"></i></div><h4>MATLAB</h4></div>
+          <div class="skill-item animate-item"><div class="skill-icon"><i class="fas fa-file-word"></i></div><h4>MS Office</h4></div>
+        </div>
+      </div>
+
+      <div class="skills-category">
+        <h3>Personal Skills</h3>
+        <svg width="0" height="0" style="position:absolute;">
+          <defs>
+            <linearGradient id="skillGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#2c3e6b"/>
+              <stop offset="100%" style="stop-color:#3a7bd5"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="personal-skills">
+          <div class="personal-skill animate-item">
+            <div class="skill-chart" data-pct="90">
+              <svg class="skill-svg"><circle class="skill-circle-bg" cx="55" cy="55" r="46"></circle><circle class="skill-circle" cx="55" cy="55" r="46"></circle></svg>
+              <div class="skill-icon-center"><i class="fas fa-puzzle-piece"></i></div>
+            </div><h4>Problem Solving</h4>
+          </div>
+          <div class="personal-skill animate-item">
+            <div class="skill-chart" data-pct="85">
+              <svg class="skill-svg"><circle class="skill-circle-bg" cx="55" cy="55" r="46"></circle><circle class="skill-circle" cx="55" cy="55" r="46"></circle></svg>
+              <div class="skill-icon-center"><i class="fas fa-comments"></i></div>
+            </div><h4>Communication</h4>
+          </div>
+          <div class="personal-skill animate-item">
+            <div class="skill-chart" data-pct="80">
+              <svg class="skill-svg"><circle class="skill-circle-bg" cx="55" cy="55" r="46"></circle><circle class="skill-circle" cx="55" cy="55" r="46"></circle></svg>
+              <div class="skill-icon-center"><i class="fas fa-user-tie"></i></div>
+            </div><h4>Leadership</h4>
+          </div>
+          <div class="personal-skill animate-item">
+            <div class="skill-chart" data-pct="95">
+              <svg class="skill-svg"><circle class="skill-circle-bg" cx="55" cy="55" r="46"></circle><circle class="skill-circle" cx="55" cy="55" r="46"></circle></svg>
+              <div class="skill-icon-center"><i class="fas fa-users"></i></div>
+            </div><h4>Teamworking</h4>
+          </div>
+          <div class="personal-skill animate-item">
+            <div class="skill-chart" data-pct="95">
+              <svg class="skill-svg"><circle class="skill-circle-bg" cx="55" cy="55" r="46"></circle><circle class="skill-circle" cx="55" cy="55" r="46"></circle></svg>
+              <div class="skill-icon-center"><i class="fas fa-clock"></i></div>
+            </div><h4>Time Management</h4>
+          </div>
+          <div class="personal-skill animate-item">
+            <div class="skill-chart" data-pct="90">
+              <svg class="skill-svg"><circle class="skill-circle-bg" cx="55" cy="55" r="46"></circle><circle class="skill-circle" cx="55" cy="55" r="46"></circle></svg>
+              <div class="skill-icon-center"><i class="fas fa-paint-brush"></i></div>
+            </div><h4>Creativity</h4>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="section alt-bg">
+  <div class="section-container">
+    <div class="section-title"><h2>Projects</h2><div class="underline"></div></div>
+    <div class="projects-container">
+
+      <div class="project-card animate-item">
+        <div class="project-img"><div class="project-img-placeholder"><i class="fas fa-hands"></i></div></div>
+        <div class="project-content">
+          <div class="badge-inprogress">In Progress</div>
+          <h3>Arabic Sign Language Recognition (FYP)</h3>
+          <p>Real-time Arabic Sign Language recognition using I3D models for spatio-temporal feature extraction, with a web-based expert validation platform for Omani researchers.</p>
+          <div class="project-tech"><span>PyTorch</span><span>I3D Models</span><span>Computer Vision</span><span>PHP / MySQL</span><span>Arabic NLP</span></div>
+          <div class="project-links">
+            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> View Project</a>
+            <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card animate-item">
+        <div class="project-img"><div class="project-img-placeholder"><i class="fas fa-robot"></i></div></div>
+        <div class="project-content">
+          <div class="badge-inprogress">In Progress</div>
+          <h3>Mental Health Support Chatbot</h3>
+          <p>Fine-tuned LLaMA 3 / Mistral using LoRA/QLoRA via Unsloth for empathetic mental health conversations, deployed through a FastAPI backend.</p>
+          <div class="project-tech"><span>LLaMA 3</span><span>LoRA / QLoRA</span><span>Unsloth</span><span>FastAPI</span><span>NLP</span></div>
+          <div class="project-links">
+            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> View Project</a>
+            <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card animate-item">
+        <div class="project-img"><div class="project-img-placeholder"><i class="fas fa-globe"></i></div></div>
+        <div class="project-content">
+          <h3>Oman Broadband — Employee Onboarding Website</h3>
+          <p>Developed an internal onboarding web platform for Oman Broadband Company to streamline the onboarding experience for new employees, providing structured guidance and workflows.</p>
+          <div class="project-tech"><span>HTML / CSS</span><span>JavaScript</span><span>PHP</span><span>SQL</span></div>
+          <div class="project-links">
+            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> View Project</a>
+            <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card animate-item">
+        <div class="project-img"><div class="project-img-placeholder"><i class="fas fa-car"></i></div></div>
+        <div class="project-content">
+          <h3>CRNN Omani License Plate Recognition</h3>
+          <p>Improved CRNN-based notebook replacing ResNet18 with a Bidirectional LSTM + CTC Loss architecture for enhanced accuracy on Arabic script Omani plates.</p>
+          <div class="project-tech"><span>PyTorch</span><span>CRNN</span><span>Bi-LSTM</span><span>CTC Loss</span><span>OCR</span></div>
+          <div class="project-links">
+            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> View Project</a>
+            <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card animate-item">
+        <div class="project-img"><div class="project-img-placeholder"><i class="fas fa-users"></i></div></div>
+        <div class="project-content">
+          <h3>Silah — Entrepreneur Support Platform</h3>
+          <p>Developed a web-based platform to facilitate connections between entrepreneurs, investors, and mentors, making business growth more accessible.</p>
+          <div class="project-tech"><span>Web Development</span><span>JavaScript</span><span>PHP</span><span>SQL</span></div>
+          <div class="project-links">
+            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> View Project</a>
+            <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card animate-item">
+        <div class="project-img"><div class="project-img-placeholder"><i class="fas fa-calendar-alt"></i></div></div>
+        <div class="project-content">
+          <h3>Booking Database System</h3>
+          <p>Designed and developed a booking management system using SQL, enabling efficient scheduling and resource allocation.</p>
+          <div class="project-tech"><span>Database Design</span><span>SQL</span><span>PHP</span><span>JavaScript</span></div>
+          <div class="project-links">
+            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> View Project</a>
+            <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS & CERTIFICATIONS -->
+<section id="achievements" class="section">
+  <div class="section-container">
+    <div class="section-title"><h2>Achievements &amp; Certifications</h2><div class="underline"></div></div>
+    <div class="achievements-container">
+      <div class="achievements-tabs">
+        <button class="tab-btn active" data-target="achievements">Achievements</button>
+        <button class="tab-btn" data-target="certifications">Certifications</button>
+      </div>
+      <div class="tab-content">
+
+        <div class="tab-pane active" id="achievements-pane">
+          <div class="achievement-cards">
+            <div class="achievement-card animate-item">
+              <div class="achievement-icon"><i class="fas fa-medal"></i></div>
+              <div class="achievement-details">
+                <h3>TechOlympics 2025 — Tehran, Iran</h3>
+                <p>3rd place among international teams · 22nd overall. Represented Oman in the AI Final Stage.</p>
+                <span class="achievement-date">2025 · International</span>
+              </div>
+            </div>
+            <div class="achievement-card animate-item">
+              <div class="achievement-icon"><i class="fas fa-trophy"></i></div>
+              <div class="achievement-details">
+                <h3>Oman Competition for AI-Enhanced Drones</h3>
+                <p>First place in AI stage — national competition combining AI with UAV technology.</p>
+                <span class="achievement-date">2024 – 2025 · National</span>
+              </div>
+            </div>
+            <div class="achievement-card animate-item">
+              <div class="achievement-icon"><i class="fas fa-globe"></i></div>
+              <div class="achievement-details">
+                <h3>Codern International Contest 2025</h3>
+                <p>17th / 200+ teams (Data/AI) · 50th / 700+ teams (Algorithm). With Osama Al-Rawahi.</p>
+                <span class="achievement-date">2025 · International</span>
+              </div>
+            </div>
+            <div class="achievement-card animate-item">
+              <div class="achievement-icon"><i class="fas fa-award"></i></div>
+              <div class="achievement-details">
+                <h3>GCC Youth Summit</h3>
+                <p>Participation in Qatar Debate</p>
+                <span class="achievement-date">2025</span>
+              </div>
+            </div>
+            <div class="achievement-card animate-item">
+              <div class="achievement-icon"><i class="fas fa-medal"></i></div>
+              <div class="achievement-details">
+                <h3>Oman Microsoft Office Specialist Championship</h3>
+                <p>Code Academy</p>
+                <span class="achievement-date">2024 – 2025</span>
+              </div>
+            </div>
+            <div class="achievement-card animate-item">
+              <div class="achievement-icon"><i class="fas fa-star"></i></div>
+              <div class="achievement-details">
+                <h3>Stars of Science</h3>
+                <p>Participated in an innovation-focused reality program by Qatar Foundation.</p>
+                <span class="achievement-date">2023 – 2024</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" id="certifications-pane">
+          <div class="certifications-list">
+            <div class="certification-item animate-item"><div class="certification-year">2026</div><div class="certification-content"><h3>Deep Learning with PyTorch: Image Segmentation</h3><p>Coursera</p></div></div>
+            <div class="certification-item animate-item"><div class="certification-year">2026</div><div class="certification-content"><h3>Cisco Certified Support Technician (CCST) Cybersecurity</h3><p>Cisco · Expires Jan 2031</p></div></div>
+            <div class="certification-item animate-item"><div class="certification-year">2025</div><div class="certification-content"><h3>Fundamentals of Deep Learning</h3><p>NVIDIA</p></div></div>
+            <div class="certification-item animate-item"><div class="certification-year">2025</div><div class="certification-content"><h3>Supervised Machine Learning: Regression &amp; Classification</h3><p>Coursera</p></div></div>
+            <div class="certification-item animate-item"><div class="certification-year">2025</div><div class="certification-content"><h3>Getting Started with Data Analytics on AWS</h3><p>edX</p></div></div>
+            <div class="certification-item animate-item"><div class="certification-year">2025</div><div class="certification-content"><h3>Oman Collegiate Programming Contest</h3></div></div>
+            <div class="certification-item animate-item"><div class="certification-year">2025</div><div class="certification-content"><h3>Tahadi Mustadam Hackathon</h3></div></div>
+            <div class="certification-item animate-item"><div class="certification-year">2025</div><div class="certification-content"><h3>Microsoft Office Specialist Certification</h3><p>Microsoft</p></div></div>
+            <div class="certification-item animate-item"><div class="certification-year">2024</div><div class="certification-content"><h3>Oman AI-Enhanced Drones Competition</h3></div></div>
+            <div class="certification-item animate-item"><div class="certification-year">2024</div><div class="certification-content"><h3>Techstars Startup Weekend, SQU</h3></div></div>
+            <div class="certification-item animate-item"><div class="certification-year">2024</div><div class="certification-content"><h3>Hackathon Ayn for Electronic Games</h3></div></div>
+            <div class="certification-item animate-item"><div class="certification-year">2024</div><div class="certification-content"><h3>Sustainable Leaders Youth Camp</h3></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section alt-bg">
+  <div class="section-container">
+    <div class="section-title"><h2>Contact Me</h2><div class="underline"></div></div>
+    <div class="contact-container">
+      <div class="contact-info">
+        <div class="contact-card">
+          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="contact-details"><h3>Location</h3><p>Muscat-Seeb, Oman</p></div>
+        </div>
+        <a href="mailto:mr.yousufalshaaili@gmail.com" class="contact-card">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <div class="contact-details"><h3>Email</h3><p>mr.yousufalshaaili@gmail.com</p></div>
+        </a>
+        <a href="https://wa.me/96897856899" target="_blank" class="contact-card">
+          <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+          <div class="contact-details"><h3>WhatsApp</h3><p>+968 97856899</p></div>
+        </a>
+        <a href="tel:+96897856899" class="contact-card">
+          <div class="contact-icon"><i class="fas fa-phone"></i></div>
+          <div class="contact-details"><h3>Phone</h3><p>+968 97856899</p></div>
+        </a>
+        <div class="contact-card">
+          <div class="contact-icon"><i class="fas fa-language"></i></div>
+          <div class="contact-details"><h3>Languages</h3><p>Arabic, English</p></div>
+        </div>
+      </div>
+
+      <div class="contact-form-container">
+        <!-- FormSubmit.co — delivers email to mr.yousufalshaaili@gmail.com, no backend needed -->
+        <form class="contact-form" action="https://formsubmit.co/mr.yousufalshaaili@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="New message from your portfolio website">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <input type="text"  name="_honey" style="display:none">
+          <div class="form-group"><input type="text"  name="name"    placeholder="Your Name"    required></div>
+          <div class="form-group"><input type="email" name="email"   placeholder="Your Email"   required></div>
+          <div class="form-group"><input type="text"  name="subject" placeholder="Subject"      required></div>
+          <div class="form-group"><textarea            name="message" placeholder="Your Message" required></textarea></div>
+          <button type="submit" class="btn primary-btn submit-btn">
+            <span>Send Message</span><i class="fas fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-logo"><span>Y</span>ousuf Alshaaili</div>
+      <div class="footer-social">
+        <a href="https://github.com/y97856899" class="social-icon" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/yousufalshaili/" class="social-icon" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://wa.me/96897856899" class="social-icon" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="mailto:mr.yousufalshaaili@gmail.com" class="social-icon"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 Yousuf Alshaaili. All Rights Reserved.</p></div>
+  </div>
+</footer>
+
+<button id="back-to-top" class="back-to-top"><i class="fas fa-arrow-up"></i></button>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+// Preloader
+window.addEventListener('load', () => {
+  const p = document.getElementById('preloader');
+  p.style.opacity = '0';
+  setTimeout(() => p.style.display = 'none', 500);
+});
+
+// Particles
+if (typeof particlesJS !== 'undefined') {
+  particlesJS('particles-js', {
+    particles: {
+      number: { value: 60, density: { enable: true, value_area: 900 } },
+      color: { value: '#3a7bd5' },
+      shape: { type: 'circle' },
+      opacity: { value: 0.22, random: true },
+      size: { value: 3, random: true },
+      line_linked: { enable: true, distance: 140, color: '#3a7bd5', opacity: 0.12, width: 1 },
+      move: { enable: true, speed: 1.2, direction: 'none', random: true, out_mode: 'out' }
+    },
+    interactivity: {
+      detect_on: 'canvas',
+      events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: true, mode: 'push' } }
+    },
+    retina_detect: true
+  });
+}
+
+// Typed text
+const roles = ['AI & Deep Learning Engineer','Cybersecurity Practitioner','Drone AI Trainer','CS Student at SQU','Arabic NLP Researcher'];
+let ri = 0, ci = 0, del = false;
+const tel = document.getElementById('typing');
+function type() {
+  const w = roles[ri];
+  if (!del) { tel.textContent = w.slice(0, ++ci); if (ci === w.length) { del = true; setTimeout(type, 1800); return; } }
+  else { tel.textContent = w.slice(0, --ci); if (ci === 0) { del = false; ri = (ri + 1) % roles.length; } }
+  setTimeout(type, del ? 40 : 80);
+}
+type();
+
+// Navbar & back-to-top on scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+  document.getElementById('back-to-top').classList.toggle('visible', window.scrollY > 400);
+  const y = window.scrollY + 80;
+  document.querySelectorAll('section[id]').forEach(s => {
+    const a = document.querySelector(`.nav-link[href="#${s.id}"]`);
+    if (a) a.classList.toggle('active', y >= s.offsetTop && y < s.offsetTop + s.offsetHeight);
+  });
+});
+
+document.getElementById('back-to-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
+document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => document.getElementById('nav-menu').classList.remove('open')));
+
+// Scroll reveal + SVG circles
+const circumference = 2 * Math.PI * 46;
+function animateCircle(chart) {
+  const pct = parseInt(chart.dataset.pct);
+  const circle = chart.querySelector('.skill-circle');
+  circle.style.strokeDasharray  = circumference;
+  circle.style.strokeDashoffset = circumference - (pct / 100) * circumference;
+}
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('visible');
+    e.target.querySelectorAll('.skill-chart').forEach(animateCircle);
+    obs.unobserve(e.target);
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.animate-item').forEach(el => obs.observe(el));
+
+// Trigger circles when skills section scrolls into view
+new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.querySelectorAll('.skill-chart').forEach(animateCircle); });
+}, { threshold: 0.2 }).observe(document.getElementById('skills'));
+
+// Tabs
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.target + '-pane').classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
